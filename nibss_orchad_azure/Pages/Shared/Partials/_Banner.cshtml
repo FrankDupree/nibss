@@ -1,0 +1,54 @@
+﻿@model nibss_orchad_azure.Models.Banner
+@inject OrchardCore.IOrchardHelper Orchard
+
+@{
+    var url = Orchard.AssetUrl(Model.ImageUrl);
+    if(Model.TitleSize != null)
+    {
+        Model.TitleSize = Model.TitleSize + "px";
+    }
+}
+<div class="uk-section" style="padding:0; margin-bottom:2%">
+    <div class="uk-height-large uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="@url"  uk-img>
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-grid uk-flex uk-flex-middle">
+                <div class="uk-width-3-4@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+
+                            @if (Model.Title != null)
+                            {
+                            <div class="uk-width-1-1@m">
+                                @if (Model.TitleSize != null)
+                                {
+                                    <h1 class="banner_header" style="margin-bottom:2%; font-size:@Model.TitleSize">@Model.Title</h1>
+                                }
+                                else
+                                {
+                                    <h1 class="banner_header">@Model.Title</h1>
+                                }
+
+                            </div>
+                            }
+
+                            @if (Model.Text != null)
+                            {
+                                <div class="uk-width-1-1@m uk-margin-small-top">
+                                    <p class="banner_text">@Model.Text</p>
+                                </div>
+                            }
+
+                            @if (Model.ButtonUrl != null)
+                            {
+                                <div class="uk-width-1-1@m" style="margin-top:0;">
+                                    <a class="uk-button uk-button-primary uk-button-large button-base" href="@Model.ButtonUrl">Discover Now</a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

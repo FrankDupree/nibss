@@ -1,0 +1,67 @@
+﻿@page "/dashboard/istat/{slug}"
+
+@inject OrchardCore.IOrchardHelper Orchard
+@{
+    ViewData["Title"] = "Industry Statistic";
+    Layout = "~/Pages/Dashboard/_Layout.cshtml";
+
+    var istat = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+
+    bool isStructured = istat.Content.IndustryStat.StructureType.Value;
+
+    int idc = 0;
+}
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+}
+
+@Orchard.ConsoleLog(istat)
+
+<p id="ind-stat-name" style="display:none">
+    @istat.DisplayText
+</p>
+
+@if (isStructured)
+{
+    foreach (var sd in istat.Content.DataSeries.ContentItems)
+    {
+        var nxid = "data-csv" + idc;
+        idc++;
+
+        <div class="csv-chart" style="display:none">
+            <div class="row">
+                <div class="col s12">
+                    <div class="card animate fadeUp">
+                        <div class="card-content">
+                            <h4 style="display:none" class="data-title">@sd.DisplayText</h4>
+                            <h4 style="display:none" class="data-subtitle">@sd.IndustryStatData.Notes.Html</h4>
+                            <figure class="highcharts-figure">
+
+                                <div class="chart-figure" id="@nxid"></div>
+                                <p class="instruct-d center-align">Click on the hamburger icon for download options</p>
+                            </figure>
+                            <a class="csv-url" href="@sd.IndustryStatData.DataFileURL.Text"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+else { 
+
+<div style="padding:4%"> @Html.Raw(istat.Content.IndustryStat.UnstructuredData.Html)</div>
+
+}
+
+@section Scripts{
+    <script src="/js/dash/service-data.min.js"></script>
+
+}
+
+
+
+

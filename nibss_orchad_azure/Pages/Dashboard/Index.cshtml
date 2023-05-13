@@ -1,0 +1,143 @@
+﻿@page
+@model nibss_orchad_azure.Pages.Dashboard.DashBoardModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Pages/Dashboard/_Layout.cshtml";
+}
+
+<div id="cards-extended" class="dashboard-div" style="display: none">
+
+    <h6 class="center-align" style="margin:3%"><span style="color: #204e1d;font-size: 24px;" class="date-header"></span><small class="ml-2" id="txn-type-header"></small></h6>
+    <div class="row">
+        <div class="col s12 m4">
+            <div id="chartjs" class="card pt-0 pb-0 animate fadeLeft">
+                <div class="padding-2 ml-2">
+
+                    <span data-position="bottom" data-tooltip="Avg Processing Time" id="processing-time"
+                          class="tooltipped badge gradient-45deg-blue-indigo gradient-shadow mt-2 mr-2"></span>
+                    <p class="mt-2 mb-0 font-weight-600">Transaction Volume</p>
+                    <p class="no-margin grey-text lighten-3 date-header"></p>
+                    <h5><span class="tooltipped" data-position="bottom" data-tooltip="Transaction Volume" id="txn-vol" z></span></h5>
+                </div>
+                <div class="row">
+                    <div class="sample-chart-wrapper card-gradient-chart">
+                        <canvas id="custom-line-chart-sample-one"
+                                class="center"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card animate fadeLeft">
+                <div class="card-content red accent-2 white-text center-align padding-4">
+                    <p class="card-stats-title">
+                        <span><strong>Failed Transaction Volume</strong></span>
+                    </p>
+                    <h4 class="card-stats-number white-text">
+                        <span id="failed-volume"></span>
+                    </h4>
+                    <p class="card-stats-compare">
+                        <span>Rate : </span> <span class="red-text text-lighten-5" id="failed-rate"></span>
+                    </p>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col s12 m7">
+                    <div class="tooltipped" data-position="bottom" data-tooltip="Max. Account Failure Rate">
+                        <div class="center-align">
+                            <h4 style="font-size: 18pt" id="max-acc-fail-rate" class="card-title"></h4>
+                            <small>Max Acc Fail Rate</small>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col s12 m5">
+                    <div class="tooltipped" data-position="bottom" data-tooltip="Min. Volume">
+                        <div class="center-align">
+                            <h4 style="font-size: 18pt" id="min-vol" class="card-title"></h4>
+                            <small>Min. Vol</small>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m8">
+
+
+            <div class="row">
+                <div class="col s12">
+                    <div class="card animate fadeRight">
+
+
+                        <div class="card-content">
+                            <figure class="highcharts-figure">
+                                <div id="status-chart"></div>
+                                <div id="no-pie-data" style="padding:25% 10%; text-align:center;display:none">
+                                    <h4 style="color:#9d7c13">No Data</h4>
+                                </div>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="section">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card card card-default scrollspy">
+                    <div class="card-content ">
+                        <h4 class="card-title">Status</h4>
+
+                        <div class="row">
+
+                            <div class="col s12">
+                                <table id="status-datatable" class="display" data-page-length='10' style="width: 100%">
+                                    <caption>Percentage Transaction volume</caption>
+                                    <thead>
+                                    <tr>
+                                        <th id="status">Status</th>
+                                        <th id="description">Description</th>
+                                        <th id="Volume">Volume</th>
+                                        <th id="Rate">Rate</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="graph-content" class="dashboard-div" style="display: none;">
+    <div class="row">
+        <div class="col s12">
+            <div class="card animate fadeUp">
+                <div class="card-content dashboard-div">
+                    <figure class="highcharts-figure">
+                        <div id="data-graph"></div>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/js/dash/custom-script.min.js"></script>
+
+}
+

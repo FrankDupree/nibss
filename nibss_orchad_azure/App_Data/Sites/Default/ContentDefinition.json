@@ -1,0 +1,2822 @@
+{
+  "ContentTypeDefinitionRecords": [
+    {
+      "Name": "Menu",
+      "DisplayName": "Menu",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "AliasPartSettings": {
+              "Pattern": "{{ ContentItem | display_text | slugify }}"
+            },
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "MenuPart",
+          "Name": "MenuPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "MenuItemsListPart",
+          "Name": "MenuItemsListPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "LinkMenuItem",
+      "DisplayName": "Link Menu Item",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "MenuItem"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "LinkMenuItemPart",
+          "Name": "LinkMenuItemPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "LinkMenuItem",
+          "Name": "LinkMenuItem",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ContentMenuItem",
+      "DisplayName": "Content Menu Item",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "MenuItem"
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ContentMenuItemPart",
+          "Name": "ContentMenuItemPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "ContentMenuItem",
+          "Name": "ContentMenuItem",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BlogCategory",
+      "DisplayName": "Blog Category",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BlogCategory",
+          "Name": "BlogCategory",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BlogPost",
+      "DisplayName": "Blog Post",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BlogPost",
+          "Name": "BlogPost",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "CommonPart",
+          "Name": "CommonPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "MarkdownBodyPart",
+          "Name": "MarkdownBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "4",
+              "Editor": "Wysiwyg"
+            },
+            "ContentIndexSettings": {},
+            "MarkdownBodyPartSettings": {}
+          }
+        },
+        {
+          "PartName": "PreviewPart",
+          "Name": "PreviewPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AutoroutePart",
+          "Name": "AutoroutePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "6"
+            },
+            "AutoroutePartSettings": {
+              "Pattern": "{{ ContentItem | display_text | slugify }}"
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Service",
+      "DisplayName": "Service",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "Service",
+          "Name": "Service",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "CommonPart",
+          "Name": "CommonPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "10"
+            }
+          }
+        },
+        {
+          "PartName": "HtmlBodyPart",
+          "Name": "HtmlBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "8",
+              "Editor": "Wysiwyg"
+            },
+            "HtmlBodyPartSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            },
+            "TitlePartSettings": {}
+          }
+        },
+        {
+          "PartName": "Banner",
+          "Name": "Banner",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "Features",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Features",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "4"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "String"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "UniqueValueProposition",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Unique Value Proposition",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "5"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "String"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "TouchPoints",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Touch Points",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "7"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "String"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "FeaturedImage",
+          "Name": "AdditionalImage",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Additional Image",
+              "Position": "9"
+            }
+          }
+        },
+        {
+          "PartName": "AutoroutePart",
+          "Name": "AutoroutePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "6"
+            },
+            "AutoroutePartSettings": {
+              "AllowCustomPath": true,
+              "Pattern": "{{ ContentItem | display_text | slugify }}",
+              "AllowUpdatePath": true
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "String",
+      "DisplayName": "String",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "String",
+          "Name": "String",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ServiceCategory",
+      "DisplayName": "Service Category",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ServiceCategory",
+          "Name": "ServiceCategory",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PartnersCarousel",
+      "DisplayName": "Partners Carousel",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "PartnersCarousel",
+          "Name": "PartnersCarousel",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "AboutTemplate",
+      "DisplayName": "About Template",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "AboutTemplate",
+          "Name": "AboutTemplate",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "Banner",
+          "Name": "Banner",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "PageHeader",
+          "Name": "PageHeader",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "CoreValues",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Core Values",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "4"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "ImageWithText"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "FeaturedImage",
+          "Name": "SideImage",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Side Image",
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "PartName": "TextBlock",
+          "Name": "OurMandate",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Our Mandate",
+              "Position": "9"
+            }
+          }
+        },
+        {
+          "PartName": "HtmlBodyPart",
+          "Name": "HtmlBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3",
+              "Editor": "Wysiwyg"
+            },
+            "HtmlBodyPartSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "6"
+            }
+          }
+        },
+        {
+          "PartName": "SimpleTextBlock",
+          "Name": "Mission",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Mission",
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "PartName": "SimpleTextBlock",
+          "Name": "Vision",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Vision",
+              "Position": "8"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "EvolutionofNigeriaPaymentsSystemRegulation",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Evolution of Nigeria Payments System & Regulation",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "10"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "TextBlockWithList"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ImageWithText",
+      "DisplayName": "Image With Text",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ImageWithText",
+          "Name": "ImageWithText",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "TextBox",
+      "DisplayName": "Text Block",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "TextBox",
+          "Name": "TextBox",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "HtmlBodyPart",
+          "Name": "HtmlBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1",
+              "Editor": "Wysiwyg"
+            },
+            "HtmlBodyPartSettings": {},
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Training",
+      "DisplayName": "Training",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "Training",
+          "Name": "Training",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "CommonPart",
+          "Name": "CommonPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "PartName": "FeaturedImage",
+          "Name": "FeaturedImage",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            },
+            "TitlePartSettings": {}
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "CourseModules",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Course Modules",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "3"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "String"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "CourseObjectives",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Course Objectives",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "4"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "String"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "TargetAudience",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Target Audience",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "6"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "String"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "AutoroutePart",
+          "Name": "AutoroutePart",
+          "Settings": {
+            "ContentTypePartSettings": {},
+            "AutoroutePartSettings": {
+              "AllowCustomPath": true,
+              "AllowUpdatePath": true
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "TrainingPageTemplate",
+      "DisplayName": "Training Page Template",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "TrainingPageTemplate",
+          "Name": "TrainingPageTemplate",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "Banner",
+          "Name": "Banner",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "CommonPart",
+          "Name": "CommonPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "6"
+            }
+          }
+        },
+        {
+          "PartName": "MarkdownBodyPart",
+          "Name": "MarkdownBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "4",
+              "Editor": "Wysiwyg"
+            },
+            "ContentIndexSettings": {},
+            "MarkdownBodyPartSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "PageHeader",
+          "Name": "PageHeader",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Partner",
+      "DisplayName": "Partner",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "Partner",
+          "Name": "Partner",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PartnerGroup",
+      "DisplayName": "Partner Group",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "PartnerGroup",
+          "Name": "PartnerGroup",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Bag",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "1"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "Partner"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PartnersPageTemplate",
+      "DisplayName": "Partners Page Template",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "PartnersPageTemplate",
+          "Name": "PartnersPageTemplate",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "Banner",
+          "Name": "Banner",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "PageHeader",
+          "Name": "PageHeader",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Bag",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "3"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "PartnerGroup"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ServiceOnboardingTemplate",
+      "DisplayName": "Service Onboarding Template",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ServiceOnboardingTemplate",
+          "Name": "ServiceOnboardingTemplate",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "Banner",
+          "Name": "Banner",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "HtmlBodyPart",
+          "Name": "HtmlBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "4",
+              "Editor": "Wysiwyg"
+            },
+            "HtmlBodyPartSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "PageHeader",
+          "Name": "PageHeader",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "TextBlockWithList",
+      "DisplayName": "Text Block With List",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Bag",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "1"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "String"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Carousel",
+      "DisplayName": "Carousel",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "Carousel",
+          "Name": "Carousel",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Bag",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "2"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "slide"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "slide",
+      "DisplayName": "slide",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "slide",
+          "Name": "slide",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "HomePageTemplate",
+      "DisplayName": "Home Page Template",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "HomePageTemplate",
+          "Name": "HomePageTemplate",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Bag",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "2"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "CardTextBlock"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "CommonPart",
+          "Name": "CommonPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "PartName": "TextBlock",
+          "Name": "OverView",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "OverView",
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TextBlock",
+          "Name": "CTATextBlock",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "CTA Text Block",
+              "Position": "4"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "CardTextBlock",
+      "DisplayName": "Card Text Block",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "CardTextBlock",
+          "Name": "CardTextBlock",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "HtmlBodyPart",
+          "Name": "HtmlBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BlogPageTemplate",
+      "DisplayName": "Blog Page Template",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BlogPageTemplate",
+          "Name": "BlogPageTemplate",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "Banner",
+          "Name": "Banner",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "PageHeader",
+          "Name": "PageHeader",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "IndustryStatData",
+      "DisplayName": "Industry Stat Data",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "IndustryStatData",
+          "Name": "IndustryStatData",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            },
+            "AliasPartSettings": {},
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "IndustryStat",
+      "DisplayName": "Industry Stat",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "IndustryStat",
+          "Name": "IndustryStat",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            },
+            "TitlePartSettings": {}
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "DataSeries",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Data Series",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "2"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "IndustryStatData"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BVNCenters",
+      "DisplayName": "BVN Centers",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BVNCenters",
+          "Name": "BVNCenters",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "HtmlBodyPart",
+          "Name": "HtmlBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3",
+              "Editor": "Wysiwyg"
+            },
+            "HtmlBodyPartSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BVNCentersPage",
+      "DisplayName": "BVN Centers Page",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BVNCentersPage",
+          "Name": "BVNCentersPage",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Bag",
+              "Description": "Provides a collection behavior for your content item.",
+              "Position": "4"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "BVNCenters"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "HtmlBodyPart",
+          "Name": "HtmlBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "PageHeader",
+          "Name": "PageHeader",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "jobOpenings",
+      "DisplayName": "jobOpenings",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "jobOpenings",
+          "Name": "jobOpenings",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {}
+        }
+      ]
+    }
+  ],
+  "ContentPartDefinitionRecords": [
+    {
+      "Name": "LiquidPart",
+      "Settings": {
+        "ContentPartSettings": {}
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "CommonPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides an editor for the common properties of a content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "AliasPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a way to define custom aliases for content items."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "AutoroutePart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a custom url for your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "PreviewPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a way to define the url that is used to render your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "WidgetsListPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a way to add widgets per content items."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "FlowPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a customizable body for your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "BagPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Reusable": true,
+          "Description": "Provides a collection behavior for your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "HtmlBodyPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides an HTML Body for your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ListPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Add a list behavior."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "MarkdownBodyPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a Markdown formatted body for your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "TitlePart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a Title for your content item.",
+          "DefaultPosition": "0"
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "MenuPart",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "MenuItemPart",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "LinkMenuItemPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Provides a menu link behavior for your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ContentMenuItemPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "DisplayName": "Content Menu Item",
+          "Description": "Provides a menu link behavior with the Content Picker for your content item."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "ContentPickerField",
+          "Name": "SelectedContentItem",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Selected Content Item",
+              "Position": "0"
+            },
+            "ContentPickerFieldSettings": {
+              "Required": true,
+              "DisplayAllContentTypes": true,
+              "DisplayedContentTypes": []
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BlogPost",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "MediaField",
+          "Name": "BlogImage",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Blog Image",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "ContentPickerField",
+          "Name": "BlogCategory",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Blog Category",
+              "Position": "1"
+            },
+            "ContentPickerFieldSettings": {
+              "DisplayedContentTypes": [
+                "BlogCategory"
+              ]
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Banner",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Reusable": true
+        }
+      },
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "MediaField",
+          "Name": "BannerImage",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Banner Image",
+              "Position": "0"
+            },
+            "ContentIndexSettings": {},
+            "MediaFieldSettings": {
+              "Required": true,
+              "Multiple": false
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "BannerTitle",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Banner Title",
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "FieldName": "NumericField",
+          "Name": "TitleSize",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Title Size",
+              "Position": "2"
+            },
+            "NumericFieldSettings": {
+              "Minimum": 10
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "BannerText",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Banner Text",
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "BannerButtonURL",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Banner Button URL",
+              "Editor": "Url",
+              "Position": "4"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "BannerButtonText",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Banner Button Text",
+              "Position": "5"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Service",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "MarkdownField",
+          "Name": "ServiceOverview",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Service Overview",
+              "Editor": "Wysiwyg",
+              "Position": "0"
+            },
+            "ContentIndexSettings": {},
+            "MarkdownFieldSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ServiceCaption",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Service Caption",
+              "Position": "1"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ServiceMediaType",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Service Media Type",
+              "Editor": "PredefinedList",
+              "Position": "2"
+            },
+            "TextFieldSettings": {},
+            "TextFieldPredefinedListEditorSettings": {
+              "Options": [
+                {
+                  "name": "Image",
+                  "value": "Image"
+                },
+                {
+                  "name": "Video",
+                  "value": "Video"
+                }
+              ],
+              "Editor": 1,
+              "DefaultValue": "Image"
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ServiceMediaURL",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Service Media URL",
+              "Position": "3"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "MarkdownField",
+          "Name": "HowItWorks",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "How It Works",
+              "Editor": "Wysiwyg",
+              "Position": "4"
+            },
+            "ContentIndexSettings": {},
+            "MarkdownFieldSettings": {}
+          }
+        },
+        {
+          "FieldName": "ContentPickerField",
+          "Name": "ServiceCategory",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Service Category",
+              "Position": "5"
+            },
+            "ContentPickerFieldSettings": {
+              "DisplayedContentTypes": [
+                "ServiceCategory"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ServiceViewType",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Service View Type",
+              "Editor": "PredefinedList",
+              "Position": "6"
+            },
+            "TextFieldSettings": {},
+            "TextFieldPredefinedListEditorSettings": {
+              "Options": [
+                {
+                  "name": "Default",
+                  "value": "0"
+                },
+                {
+                  "name": "BVN",
+                  "value": "1"
+                },
+                {
+                  "name": "Unstructured",
+                  "value": "2"
+                }
+              ],
+              "Editor": 1,
+              "DefaultValue": "0"
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ServiceFeatureorTargetAudience",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Service Feature or Target Audience",
+              "Editor": "PredefinedList",
+              "Position": "7"
+            },
+            "TextFieldSettings": {},
+            "TextFieldPredefinedListEditorSettings": {
+              "Options": [
+                {
+                  "name": "Features",
+                  "value": "Features"
+                },
+                {
+                  "name": "Target Audience",
+                  "value": "Target Audience"
+                }
+              ],
+              "Editor": 1,
+              "DefaultValue": "Target Audience"
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "ShowOnboarding",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Show Onboarding",
+              "Position": "8"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "ShowIntegrate",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Show Integrate",
+              "Position": "9"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "String",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "PartnersCarousel",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "MediaField",
+          "Name": "Images",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Images",
+              "Position": "0"
+            },
+            "ContentIndexSettings": {},
+            "MediaFieldSettings": {
+              "Required": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PageHeader",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true
+        }
+      },
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "heading",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Heading"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "SubHeading",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Sub Heading"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ImageWithText",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "MediaField",
+          "Name": "Image1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Image 1",
+              "Position": "0"
+            },
+            "ContentIndexSettings": {},
+            "MediaFieldSettings": {
+              "Multiple": false
+            }
+          }
+        },
+        {
+          "FieldName": "MediaField",
+          "Name": "Image2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Image 2",
+              "Position": "1"
+            },
+            "ContentIndexSettings": {},
+            "MediaFieldSettings": {
+              "Multiple": false
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Title",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Title",
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "SubTitle",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Sub Title"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "TextBlock",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Reusable": true
+        }
+      },
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "Title",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Title",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ButtonText",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Button Text",
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ButtonURL",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Button URL",
+              "Editor": "Url",
+              "Position": "4"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "SubTitle",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Sub Title",
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "FieldName": "HtmlField",
+          "Name": "body",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "body",
+              "Position": "2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "FeaturedImage",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Reusable": true
+        }
+      },
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "MediaField",
+          "Name": "image",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "image",
+              "Position": "0"
+            },
+            "ContentIndexSettings": {},
+            "MediaFieldSettings": {
+              "Multiple": false
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "SimpleTextBlock",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Reusable": true
+        }
+      },
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "Title",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Title",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "MarkdownField",
+          "Name": "Body",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Body",
+              "Editor": "Wysiwyg",
+              "Position": "1"
+            },
+            "ContentIndexSettings": {},
+            "MarkdownFieldSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Training",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "NumericField",
+          "Name": "Cost",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Cost",
+              "Position": "1"
+            },
+            "NumericFieldSettings": {
+              "Scale": 2,
+              "Minimum": 0,
+              "DefaultValue": "0.00"
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "DateField",
+          "Name": "Date",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Date",
+              "Editor": "Localized",
+              "Position": "0"
+            },
+            "DateFieldSettings": {},
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true,
+              "Sanitized": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "TrainingPageTemplate",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "CTAtext",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "CTA text",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "CTAURL",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "CTA URL",
+              "Editor": "Url",
+              "Position": "1"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Partner",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "name",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "name",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "MediaField",
+          "Name": "Logo",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Logo",
+              "Position": "1"
+            },
+            "ContentIndexSettings": {},
+            "MediaFieldSettings": {
+              "Multiple": false
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Website",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Website",
+              "Editor": "Url",
+              "Position": "2"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "slide",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "Title",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Title",
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Text",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Text",
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "FieldName": "NumericField",
+          "Name": "TitleSize",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Title Size",
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "FieldName": "MediaField",
+          "Name": "Image",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Image",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ButtonText",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "ButtonText",
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "ButtonURL",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Button URL",
+              "Position": "8"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "TitLeColor",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "TitLe Color",
+              "Editor": "Color",
+              "Position": "3"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "TextColor",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Text Color",
+              "Editor": "Color",
+              "Position": "6"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "NumericField",
+          "Name": "TextSize",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Text Size",
+              "Position": "5"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "HomePageTemplate",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "YoutubeField",
+          "Name": "FeaturedVideo",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Featured Video",
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "CardTextBlock",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "LinkText",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Link Text",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "LinkURL",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Link URL",
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "IndustryStatData",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "HtmlField",
+          "Name": "Notes",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Notes",
+              "Editor": "Wysiwyg",
+              "Position": "1"
+            },
+            "HtmlFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "DataFileURL",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Data File URL",
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "IndustryStat",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "HtmlField",
+          "Name": "UnstructuredData",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Unstructured Data",
+              "Editor": "Wysiwyg",
+              "Position": "0"
+            },
+            "HtmlFieldSettings": {
+              "SanitizeHtml": false
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "StructureType",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Is Structured",
+              "Position": "1"
+            },
+            "BooleanFieldSettings": {
+              "Hint": "Check if the content is structured"
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "jobOpenings",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "HtmlField",
+          "Name": "Description",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Description",
+              "Editor": "Wysiwyg",
+              "Position": "0"
+            },
+            "HtmlFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Experience",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Experience",
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Location",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Location",
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "MinQ",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "MinQ",
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Role",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Role",
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "FieldName": "DateField",
+          "Name": "DeadLine",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "DeadLine",
+              "Position": "5"
+            },
+            "DateFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {
+              "Included": true,
+              "Stored": true,
+              "Analyzed": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "Serial": 921
+}

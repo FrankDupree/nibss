@@ -1,0 +1,62 @@
+﻿ @model OrchardCore.ContentManagement.ContentItem
+@inject OrchardCore.IOrchardHelper Orchard;
+@addTagHelper *, OrchardCore.Media
+
+    <div  uk-slider="autoplay: true">
+
+        <div class="uk-slider-container uk-height-large uk-position-relative uk-visible-toggle uk-light" tabindex="-1">
+
+            <ul style="height:100%" class="uk-slider-items uk-child-width-1-1">
+                @foreach (var slide in Model.Content.BagPart.ContentItems)
+                {
+                    var titleSize = slide.slide.TitleSize.Value;
+                    var titleColor = slide.slide.TitLeColor.Text;
+                    var textSize = slide.slide.TextSize.Value;
+                    var textColor = slide.slide.TextColor.Text;
+
+                    if (titleSize == null)
+                    {
+                        titleSize = 54;
+                    }
+                    if (textSize == null)
+                    {
+                        textSize = 11;
+                    }
+                    if (textColor == null)
+                    {
+                        textColor = "#ffffff";
+                    }
+
+                    if (titleColor == null)
+                    {
+                        titleColor = "#ffffff";
+                    }
+
+                    <li>
+
+                        <img asset-src="@slide.slide.Image.Paths[0]" alt="" uk-cover  class="uk-responsive-width"/>
+                        <div class="uk-container uk-container-small uk-flex-auto  uk-position-relative uk-margin-large-top" data-uk-parallax="y: 0,50; easing:0; opacity:0.2" style="transform: translateY(0px); opacity: 1;">
+                            <div class="uk-width-5-6" data-uk-scrollspy="cls: uk-animation-slide-right-medium; target: > *; delay: 150">
+                                <h1 class="uk-scrollspy-inview uk-animation-slide-right-medium banner_header" style='font-size:@(titleSize + "px");color:@titleColor'>@slide.slide.Title.Text</h1>
+                                <p class="subtitle-text banner_text uk-visible@s uk-scrollspy-inview uk-animation-slide-right-medium" style="font-size:@(textSize+"px");color:@textColor">
+                                    @slide.slide.Text.Text
+                                </p>
+                                <a href="@slide.slide.ButtonURL.Text" class="uk-button uk-button-primary uk-scrollspy-inview uk-animation-fade button-base" data-uk-scrollspy-class="uk-animation-fade" style="">@slide.slide.ButtonText.Text</a>
+                            </div>
+                        </div>
+
+                    </li>
+                }
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+        </div>
+
+        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+
+    </div>
+
+    
+

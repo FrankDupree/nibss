@@ -1,0 +1,156 @@
+﻿@page  "/trainings/{slug}"
+
+@inject OrchardCore.IOrchardHelper Orchard
+@model nibss_orchad_azure.Pages.Trainings.EnrollModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, OrchardCore.Media
+@using OrchardCore.ContentManagement
+@using Newtonsoft.Json
+@using nibss_orchad_azure.Models
+
+@{
+    ContentItem training;
+    if (TempData["data"] != null)
+    {
+        training = JsonConvert.DeserializeObject<ContentItem>((string)TempData["data"]);
+        ViewBag.Title = training.Content.AliasPart.Alias;
+    }
+    else
+    {
+        training = await Orchard.GetContentItemByHandleAsync($"alias:{Model.Slug}");
+        ViewData["Title"] = Model.Slug;
+
+    }
+    string confirmation = (string)ViewData["confirmation"];
+    Model.Training = @training.DisplayText;
+
+}
+@{
+    var train = await Orchard.GetContentItemByHandleAsync($"alias:training-page");
+
+    //create Banner Object
+    Banner banner = new Banner();
+    banner.Title = train.Content.Banner.BannerTitle.Text;
+    banner.Text = train.Content.Banner.BannerText.Text;
+    banner.ImageUrl = train.Content.Banner.BannerImage.Paths[0];
+    banner.ButtonUrl = train.Content.Banner.BannerButtonURL.Text;
+    banner.TitleSize = train.Content.Banner.TitleSize.Value;
+}
+
+@await Html.PartialAsync("Partials/_Banner", banner)
+<div class="uk-section uk-padding-small">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid-medium uk-grid uk-flex uk-flex-middle">
+            <div class="uk-width-1-1@m">
+                <div class="uk-container">
+                    <div uk-grid>
+                        <div class="uk-width-1-3@m">
+                            <h6 class="uk-heading-line uk-text-small"><span>Training</span></h6>
+                        </div>
+                        <div class="uk-width-1-1@m uk-margin-small">
+                            <h2 class="page_title">Training Details</h2>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="uk-container uk-container-small uk-margin-medium-top">
+
+    <div class="uk-text-left" uk-grid>
+        <div class="uk-width-1-3@m">
+            <div class="uk-card  uk-card-body">
+                <h5 class="features-header">@training.DisplayText</h5>
+                <p style="font-weight:bold">
+                    Price: N<span>@string.Format("{0:N}", @training.Content.Training.Cost.Value)</span>
+                    /Month
+                </p>
+            </div>
+        </div>
+
+        <div class="uk-width-expand@m">
+            <div class="uk-card  uk-card-body">
+                @if (confirmation != "init")
+                {
+                    if (confirmation == "true")
+                    {
+                        <div class="uk-placeholder uk-text-center">
+                            <strong>Message sent successfully...we will get back to you!</strong>.
+                            <p>
+                                <a href="/" class="uk-button button-base">
+                                    Continue from Hompage
+                                </a>
+                                <a href="/trainings" class="uk-button button-base">
+                                    Trainings
+                                </a>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="uk-placeholder uk-text-center">
+                            <strong style="color:red">Error sending message...please try again!</strong>.
+                            <p>
+                                <a href="/contact" class="uk-button button-base2">
+                                    Try Again
+                                </a>
+                            </p>
+                        </div>
+                    }
+                }
+                else
+                {
+                    using (Html.BeginForm(null, null, FormMethod.Post, new { action = "/trainings/" + Model.Slug + "?tid=" + @training.ContentItemId, @class = "uk-grid-small uk-grid" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-stacked-select">First Name</label>
+                            <input asp-for="Enroll.FirstName" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="Enroll.FirstName"></span>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-stacked-select">Surname</label>
+                            <input asp-for="Enroll.LastName" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="Enroll.LastName"></span>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-stacked-select">Email address</label>
+                            <input asp-for="Enroll.Email" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="Enroll.Email"></span>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label class="uk-form-label" for="form-stacked-select">Phone number</label>
+                            <input asp-for="Enroll.Phone" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="Enroll.Phone"></span>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <label class="uk-form-label" for="form-stacked-select">Training</label>
+                            <input asp-for="Training" class="uk-input" disabled />
+                        </div>
+                        <div class="uk-width-1-1 uk-text-right">
+                            <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey" data-callback="correctCaptcha"></div>
+                        </div>
+                        <div class="uk-width-1-1 uk-text-right">
+                            <br />
+                            <button id="form-submit-btn" type="submit" class="uk-button uk-button-medium button-base" disabled>SUBMIT</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@await Component.InvokeAsync("PartnersCarousel")
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    function correctCaptcha() {
+        document.getElementById("form-submit-btn").disabled = false;
+    }
+</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

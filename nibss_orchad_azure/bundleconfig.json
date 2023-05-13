@@ -1,0 +1,140 @@
+[
+  {
+    "outputFileName": "wwwroot/js/vendor_app.min.js",
+    "inputFiles": [
+      "wwwroot/js/vendor_app.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/uikit-icons.min.js",
+    "inputFiles": [
+      "wwwroot/js/uikit-icons.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/socials.min.js",
+    "inputFiles": [
+      "wwwroot/js/socials.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/scustom.min.js",
+    "inputFiles": [
+      "wwwroot/js/scustom.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/home.min.js",
+    "inputFiles": [
+      "wwwroot/js/home.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/high-chart-custom.min.js",
+    "inputFiles": [
+      "wwwroot/js/high-chart-custom.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dashboard.min.js",
+    "inputFiles": [
+      "wwwroot/js/dashboard.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/chat-widget.min.js",
+    "inputFiles": [
+      "wwwroot/js/chat-widget.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/chart-api.min.js",
+    "inputFiles": [
+      "wwwroot/js/chart-api.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/style.min.css",
+    "inputFiles": [
+      "wwwroot/css/style.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/scustom.min.css",
+    "inputFiles": [
+      "wwwroot/css/scustom.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/materialize-icons.min.css",
+    "inputFiles": [
+      "wwwroot/css/materialize-icons.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/font-awesome.min.css",
+    "inputFiles": [
+      "wwwroot/css/font-awesome.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/floatsocial.min.css",
+    "inputFiles": [
+      "wwwroot/css/floatsocial.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/dash.min.css",
+    "inputFiles": [
+      "wwwroot/css/dash.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/dash/datatables.min.css",
+    "inputFiles": [
+      "wwwroot/css/dash/datatables.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/css/dash/custom.min.css",
+    "inputFiles": [
+      "wwwroot/css/dash/custom.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dash/datatables.min.js",
+    "inputFiles": [
+      "wwwroot/js/dash/datatables.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dash/general-script.min.js",
+    "inputFiles": [
+      "wwwroot/js/dash/general-script.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dash/service-data.min.js",
+    "inputFiles": [
+      "wwwroot/js/dash/service-data.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/dash/custom-script.min.js",
+    "inputFiles": [
+      "wwwroot/js/dash/custom-script.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/nibbs/nift.min.js",
+    "inputFiles": [
+      "wwwroot/js/nibbs/nift.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/nibbs/career/Apply.min.Js",
+    "inputFiles": [
+      "wwwroot/js/nibbs/career/Apply.Js"
+    ]
+  }
+]

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<OrchardCore.ContentManagement.ContentItem>
+@inject OrchardCore.IOrchardHelper Orchard
+@addTagHelper *, OrchardCore.Media
+
+
+
+
+<div class='uk-section uk-padding-medium uk-padding-remove-bottom uk-margin-remove-top'>
+    <div class="uk-container">
+        <h5 class="uk-text-center uk-margin-small-bottom home-page-blog-section-header">VISIT OUR LATEST NEWS</h5>
+        <h4 class="uk-text-center home-card-title" style="margin:1.5% 0 1% 0">Find our curated collection of news articles, videos and audio stories</h4>
+        <p class="uk-text-small uk-text-center" style="margin-top:0; margin-bottom:4%">All the latest news, analysis, research, charts, data events and webinars.</p>
+        <div class="uk-grid-small uk-child-width-expand@s uk-light uk-margin-large-bottom" uk-grid>
+
+            @foreach (var post in Model)
+            {
+                int i = post.Content.BlogPost.BlogImage.Paths.Count;
+                var imgUrl = i == 0 ? "/img/640x4_3.png" : Orchard.AssetUrl((string)post.Content.BlogPost.BlogImage.Paths[0]);
+
+                string excerpt = (string)post.Content.MarkdownBodyPart.Markdown;
+                excerpt = excerpt.Substring(0, 200);
+                excerpt = excerpt + "..";
+                
+                
+
+                <div class="home-blog-item">
+                    <div class="uk-card home-blog-1">
+                        <div class="uk-inline">
+                            <img alt="Featured Image" class="uk-height-medium" src="@imgUrl" uk-img />
+                            <div class="uk-overlay uk-light uk-overlay-primary uk-position-bottom uk-padding-small">
+                                <div class="home-blog-play" style="margin-top:7%; margin-bottom:5%"><a href="/news/@post.ContentItemId"> <i class="fa fa-play"></i></a></div>
+                                <p style="letter-spacing: 1px;" class="uk-margin-remove">@post.CreatedUtc</p>
+                                <h5 class="home-blog-title home-blog-title-short uk-margin-small" style="overflow:hidden;white-space: nowrap;">@post.DisplayText</h5>
+                                <h5 class="home-blog-title home-blog-title-full uk-margin-small">@post.DisplayText</h5>
+                                <div class="home-blog-excerpt-container"><p class="home-blog-excerpt">@excerpt</p></div>
+                                <p class="home-blog-read-more uk-margin-small-top"><a href="/news/@post.ContentItemId">Read More</a><br /><i class="fa fa-long-arrow-right"></i></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,523 @@
+﻿@page "/services/{slug}"
+@using nibss_orchad_azure.Models
+@inject OrchardCore.IOrchardHelper Orchard
+@addTagHelper *, OrchardCore.Media
+
+@{
+    var service = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    ViewData["Title"] = service.DisplayText;
+
+
+    bool mediaIsImage = false;
+
+    string mediaType = (string)service.Content.Service.ServiceMediaType.Text;
+   if (mediaType.Equals("Image"))
+    {
+        mediaIsImage = true;
+    }
+
+    var mediaUrl = (string)service.Content.Service.ServiceMediaURL.Text;
+    if (mediaUrl == null)
+    {
+        mediaIsImage = true;
+        if (service.Content.Service.ServiceViewType.Text != "2")
+        {
+            mediaUrl = "/img/640x4_3.png";
+        }
+
+
+
+
+    }
+
+    Banner banner = new Banner
+    {
+        Title = service.Content.Banner.BannerTitle.Text,
+        Text = service.Content.Banner.BannerText.Text,
+        ImageUrl = service.Content.Banner.BannerImage.Paths[0],
+        ButtonUrl = service.Content.Banner.BannerButtonURL.Text,
+        TitleSize = service.Content.Banner.TitleSize.Value
+    };
+
+    bool showIntegrate = false;
+    bool showOnboarding = false;
+    if (service.Content.Service.ShowIntegrate != null)
+    {
+        if (service.Content.Service.ShowIntegrate.Value == true)
+        {
+            showIntegrate = true;
+        }
+    }
+    if (service.Content.Service.ShowOnboarding != null)
+    {
+        if (service.Content.Service.ShowOnboarding.Value == true)
+        {
+            showOnboarding = true;
+        }
+    }
+}
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+}
+
+
+
+@await Html.PartialAsync("Partials/_Banner", banner)
+
+
+@if (service.Content.Service.ServiceViewType.Text == "0")
+{
+    <div class="uk-section uk-padding-small">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-grid">
+                <div class="uk-width-1-2@m">
+                    <h6 class="uk-heading-line uk-text-small"><span>SERVICES</span></h6>
+                </div>
+                <div class="uk-width-1-1@m uk-margin-small-top">
+                    <h2 class="page_title">@service.DisplayText</h2>
+                </div>
+
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container uk-margin-small">
+                        <div uk-grid>
+
+                            <div class="uk-width-1-1@m">
+                                <p>@service.Content.Service.ServiceOverview.Markdown</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container uk-margin-small">
+
+                        <p class="page_caption small-gold">
+                            @service.Content.Service.ServiceCaption.Text
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-padding-small">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-flex uk-flex-middle" uk-grid>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1@m">
+
+                                @if (mediaIsImage)
+                                {
+                                    <div class='tran-img-bg'>
+                                        <div class="uk-card uk-card-default uk-card-hover">
+                                            <div class="uk-card-media-top">
+                                                <div class="image-box"><img style="width:100%"  src="@mediaUrl" alt="Featured Image"></div>
+             
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class='tran-img-bg'><div class="iframe-container"><iframe title="Featured Video" src="@mediaUrl" width="560" height="315"></iframe></div></div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1@m">
+                                <h4 class="list-header">Unique Value Proposition</h4>
+                            </div>
+                            <div class="uk-width-1-1@m uk-margin-small-top">
+
+                                @{
+                                    var unique = service.Content.UniqueValueProposition.ContentItems;
+                                    var touch = service.Content.TouchPoints.ContentItems;
+                                    var features = service.Content.Features.ContentItems;
+                                }
+
+                                @if (unique.Count > 1)
+                                {
+                                    <ul class="uk-list uk-list-square">
+
+                                        @foreach (var row in unique)
+                                        {
+                                            <li>@row.DisplayText</li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p>@unique[0].DisplayText</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1@m">
+                                <h4 class="list-header">Touch Points</h4>
+                            </div>
+                            <div class="uk-width-1-1@m uk-margin-small-top">
+                                <ul class="uk-list uk-list-square">
+                                    @foreach (var row in touch)
+                                    {
+                                        <li>@row.DisplayText</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-padding-small">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid">
+                <div class="uk-width-1-1@m">
+                    <div class="uk-card uk-card-default uk-card-body uk-card-hover">
+                        <div class="uk-grid-large uk-flex uk-flex-middle" uk-grid>
+                            <div class="uk-width-1-2@m">
+                                <div class="uk-container">
+                                    <div uk-grid>
+                                        <div class="uk-width-1-1@m">
+                                            <h4 class="list-header">How It Works</h4>
+                                        </div>
+                                        <div class="uk-width-1-1@m">
+                                            @Html.Raw(service.Content.Service.HowItWorks.Html)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-width-1-2@m">
+                                <div class="uk-container">
+                                    <div uk-grid>
+                                        <div class="uk-width-1-1">
+                                            <h6 class="small-gold"> Features</h6>
+                                        </div>
+                                        <div class="uk-width-1-1">
+                                            <ul class="uk-list uk-list-square">
+                                                @foreach (var row in features)
+                                                {
+                                                    <li>@row.DisplayText</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-width-1-1 uk-text-center uk-margin-medium-top">
+                               
+                                @if(showIntegrate) { 
+                                <button style="margin:2%;width:200px" id="widget-launcher" class="uk-button uk-button-primary button-base">Integrate Now</button>
+                                }
+                                @if(showOnboarding) { 
+                            <a style="margin:2%; width:200px" class="uk-button uk-button-primary button-base" href="/services/onboarding">Onboarding process</a>
+                                }
+
+
+                                
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="uk-width-1-1@m uk-margin-medium-top">
+                        
+                        @Html.Raw(service.Content.HtmlBodyPart.Html)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (service.Content.Service.ServiceViewType.Text == "1")
+{
+
+    <div class="uk-section uk-padding-small">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-grid">
+                <div class="uk-width-1-2">
+                    <h6 class="uk-heading-line uk-text-small"><span>SERVICES</span></h6>
+                </div>
+                <div class="uk-width-1-1 uk-margin-small-top">
+                    <h2 class="page_title">@service.DisplayText</h2>
+                </div>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+
+                            <div class="uk-width-1-1">
+                                @service.Content.Service.ServiceOverview.Markdown
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container uk-margin-small uk-text-center">
+
+                        <h3 class="page_caption small-gold" style="margin-bottom:0;">
+                           @Html.Raw(service.Content.Service.ServiceCaption.Text)
+                        </h3>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-padding-small">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-flex uk-flex-middle" uk-grid>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1">
+                                <div class='tran-img-bg'>
+                                    @if (mediaIsImage)
+                                    {
+                                        <div class='tran-img-bg'>
+                                            <div class="uk-card uk-card-default uk-card-hover">
+                                                <div class="image-box">
+
+                                                    <img alt="Featured Image"  style="width: 100%" src="@mediaUrl" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class='tran-img-bg'><div class="iframe-container"><iframe title="Featured Video" src="@mediaUrl" width="560" height="315" ></iframe></div></div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1 uk-margin-small-top">
+                                @{
+                                    var unique = service.Content.UniqueValueProposition.ContentItems;
+                                    var features = service.Content.Features.ContentItems;
+                                    var touch = service.Content.TouchPoints.ContentItems;
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1">
+                                <h4 class="list-header">The Benefits</h4>
+                            </div>
+                            <div class="uk-width-1-1 uk-margin-small-top">
+                                <ul class="uk-list uk-list-square">
+                                    @foreach (var row in features)
+                                    {
+                                        <li>@row.DisplayText</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-padding-small">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid">
+                <div class="uk-width-1-1">
+                    <div class="uk-grid-large uk-flex uk-flex-middle" uk-grid>
+                        <div class="uk-width-1-1">
+                            <div class="uk-container">
+                                <div uk-grid>
+                                    <h4 class="list-header">What you need to know about BVN</h4>
+                                    <div class="uk-width-1-1">
+                                        <ul class="uk-list uk-list-square">
+                                            @foreach (var row in touch)
+                                            {
+                                                <li>@row.DisplayText</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="uk-width-1-3@m uk-text-center uk-margin-medium-top">
+                            <a target="_blank" class="uk-button uk-button-primary button-base" href="@service.Content.Service.LinkToBVNAccount.Text">Link BVN to your account</a>
+                        </div>
+                        <div class="uk-width-1-3@m uk-text-center uk-margin-medium-top">
+                            <a target="_blank" class="uk-button uk-button-primary button-base" href="@service.Content.Service.ValidateBVN.Text">Validate BVN</a>
+                        </div>
+                        <div class="uk-width-1-3@m uk-text-center uk-margin-medium-top">
+                            <a target="_blank" class="uk-button uk-button-primary button-base" style="padding-left:8%; padding-right:8%;text-align:center" href="@service.Content.Service.RequirementsForBVNCertification.Text">Requirement for BVN certification</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="uk-section uk-padding-medium uk-margin-large-top" style="background:#e7e7e7;">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-flex uk-flex-middle" uk-grid>
+                @Html.Raw(service.Content.HtmlBodyPart.Html)
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-section uk-padding-medium uk-margin-small-top">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-flex uk-flex-middle" uk-grid>
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1">
+                                <h4 class="list-header">How to Enroll</h4>
+                            </div>
+                            <div class="uk-width-1-1 uk-margin-small-top">
+                                <ul class="uk-list uk-list-square">
+                                    @foreach (var row in unique)
+                                    {
+                                        <li>@row.DisplayText</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="uk-width-1-2@m">
+                    <div class="uk-container">
+                        <div uk-grid>
+                            <div class="uk-width-1-1" style="text-align: center;">
+                                <img alt="Featured Image" asset-src="@service.Content.AdditionalImage.image.Paths[0]" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-width-1-2@m uk-text-center uk-margin-medium-top">
+                    <a class="uk-button uk-button-primary button-base" href="@service.Content.Service.DiasporaLocation.Text">Diaspora Locations</a>
+                </div>
+                <div class="uk-width-1-2@m uk-text-center uk-margin-medium-top">
+                    <a class="uk-button uk-button-primary button-base" target="_blank" href="@service.Content.Service.DiasporaEnrollment.Text">Diaspora Enrolment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <div class="uk-section uk-padding-small">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-grid">
+                <div class="uk-width-1-2@m">
+                    <h6 class="uk-heading-line uk-text-small"><span>SERVICES</span></h6>
+                </div>
+                <div class="uk-width-1-1@m uk-margin-small-top">
+                    <h2 class="page_title">@service.DisplayText</h2>
+                </div>
+
+                @if (mediaUrl != null)
+                {
+            <div class="uk-width-1-3@m uk-margin-small-top">
+                <div class="image-box"><img alt="Featured Image" src="@mediaUrl" /></div>
+                
+            </div>
+                }
+
+
+                <div class="uk-width-expand uk-margin-small-top">
+                    @Html.Raw(service.Content.HtmlBodyPart.Html)
+                    <div class="uk-width-1-1 uk-text-center uk-margin-medium-top">
+                        @if (showIntegrate)
+                        {
+                            <button style="margin:2%;width:200px" id="widget-launcher" class="uk-button uk-button-primary button-base">Integrate Now</button>
+                        }
+                        @if (showOnboarding)
+                        {
+                            <a style="margin:2%; width:200px" class="uk-button uk-button-primary button-base" href="/services/onboarding">Onboarding process</a>
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@await Component.InvokeAsync("PartnersCarousel")
+
+<script>
+    var wysiwyg = document.getElementsByClassName("efectP");
+    UIkit.accordion(wysiwyg);
+</script>
+<script>
+
+    window.fwSettings = {
+
+        'widget_id': 47000004772,
+
+    };
+
+    !function () { if ("function" != typeof window.FreshworksWidget) { var n = function () { n.q.push(arguments) }; n.q = [], window.FreshworksWidget = n } }()
+
+</script>
+
+<script type='text/javascript' src='https://widget.freshworks.com/widgets/47000004772.js' async defer>
+
+    < script >
+
+    //custom API to prefill certain fields
+
+    FreshworksWidget('prefill', 'ticketForm', {
+
+        subject: 'NIP Customer Onboarding Request',
+
+        priority: 1,
+
+        status: 2,
+
+        type: 'Customer Onboarding', //dropdown
+
+        custom_fields: {
+
+            cf_kindly_select_desired_product: 'NIP', //dropdown field
+
+            cf_approved_category: 'Customer Onboarding', //dropdown field
+
+            cf_approved_sub_category: 'NIP Integration', //subchoice
+
+            cf_approved_sub_category_2: 'New Request'//subchoice
+
+        }
+
+    });
+
+//custom API to hide certain fields
+
+FreshworksWidget('hide', 'ticketForm', ['subject', 'custom_fields.cf_approved_category']);
+
+
+
+</script>

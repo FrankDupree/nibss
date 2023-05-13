@@ -1,0 +1,169 @@
+﻿@model IEnumerable<OrchardCore.ContentManagement.ContentItem>
+
+
+@inject OrchardCore.IOrchardHelper Orchard
+
+
+<aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
+    <div class="brand-sidebar">
+        <h1 class="logo-wrapper center-align ml-5">
+            <a href="/">
+                <img style="width: 50%" src="/img/logo.png"
+                     alt="NIBSS logo" />
+            </a>
+        </h1>
+    </div>
+    <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow"
+        id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
+        <li class="bold grand-node">
+            <a class="collapsible-header waves-effect waves-cyan " href="#">
+                <i style="color:darkcyan" class="material-icons">pie_chart</i><span class="menu-title"
+                                                                                    data-i18n="">NIP</span><span class="badge badge pill blue float-right mr-10"><strong style="padding:0px 5px">Live</strong></span>
+            </a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li class="bold top-node">
+                        <a class="collapsible-header waves-effect waves-cyan " href="#">
+                            <i style="font-size:18px; color:green" class="material-icons">skip_next</i><span class="menu-title"
+                                                                                                             data-i18n="">Inward</span>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li id="nip-inward-today">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=nip&dty=true&dtf=true&id=nip-inward-today" data-i18n="">
+                                        <i style="font-size:16px; color:mediumslateblue" class="material-icons">today</i><span>Today</span>
+                                    </a>
+                                </li>
+                                <li id="nip-inward-range">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=nip&dty=true&dtf=false&id=nip-inward-range" data-i18n="">
+                                        <i style="font-size:16px; color:darksalmon" class="material-icons">date_range</i><span>Range</span>
+                                    </a>
+                                </li>
+                                <li id="nip-inward-volume">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=nip&dty=true&cat=vol&id=nip-inward-volume" data-i18n="">
+                                        <i style="font-size:16px; color:lightseagreen" class="material-icons">show_chart</i><span>Volume Graph</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="bold top-node">
+                        <a class="collapsible-header waves-effect waves-cyan " href="#">
+                            <i style="font-size:18px; color:darkred" class="material-icons">skip_previous</i><span class="menu-title"
+                                                                                                                   data-i18n="">Outward</span>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li id="nip-outward-today">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=nip&dty=false&dtf=true&id=nip-outward-today" data-i18n="">
+                                        <i style="font-size:16px; color:mediumslateblue" class="material-icons">today</i><span>Today</span>
+                                    </a>
+                                </li>
+                                <li id="nip-outward-range">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=nip&dty=false&dtf=false&id=nip-outward-range" data-i18n="">
+                                        <i style="font-size:16px; color:darksalmon" class="material-icons">date_range</i><span>Range</span>
+                                    </a>
+                                </li>
+                                <li id="nip-outward-volume">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=nip&dty=false&cat=vol&id=nip-outward-volume" data-i18n="">
+                                        <i style="font-size:16px; color:lightseagreen" class="material-icons">show_chart</i><span>Volume Graph</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="bold grand-node">
+            <a class="collapsible-header waves-effect waves-cyan " href="#">
+                <i style="color: darkslateblue" class="material-icons">insert_chart</i><span class="menu-title"
+                                                                                             data-i18n="">POS</span><span class="badge badge pill blue float-right mr-10"><strong style="padding:0px 5px">Live</strong></span>
+            </a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                    <li class="bold top-node">
+                        <a class="collapsible-header waves-effect waves-cyan " href="#">
+                            <i style="font-size: 18px; color: green" class="material-icons">skip_next</i><span class="menu-title"
+                                                                                                               data-i18n="">Acquiring</span>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li id="pos-inward-today">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=pos&dty=true&dtf=true&id=pos-inward-today" data-i18n="">
+                                        <i style="font-size:16px; color:mediumslateblue" class="material-icons">today</i><span>Today</span>
+                                    </a>
+                                </li>
+                                <li id="pos-inward-range">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=pos&dty=true&dtf=false&id=pos-inward-range" data-i18n="">
+                                        <i style="font-size:16px; color:darksalmon" class="material-icons">date_range</i><span>Range</span>
+                                    </a>
+                                </li>
+                                <li id="pos-inward-volume">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=pos&dty=true&cat=vol&id=pos-inward-volume" data-i18n="">
+                                        <i style="font-size:16px; color:lightseagreen" class="material-icons">show_chart</i><span>Volume Graph</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="bold top-node">
+                        <a class="collapsible-header waves-effect waves-cyan " href="#">
+                            <i style="font-size:18px; color:red" class="material-icons">skip_previous</i><span class="menu-title"
+                                                                                                               data-i18n="">Issuing</span>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+                                <li id="pos-outward-today">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard/?dt=pos&dty=false&dtf=true&id=pos-outward-today" data-i18n="">
+                                        <i style="font-size:16px; color:mediumslateblue" class="material-icons">today</i><span>Today</span>
+                                    </a>
+                                </li>
+                                <li id="pos-outward-range">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=pos&dty=false&dtf=false&id=pos-outward-range" data-i18n="">
+                                        <i style="font-size:16px; color:darksalmon" class="material-icons">date_range</i><span>Range</span>
+                                    </a>
+                                </li>
+                                <li id="pos-outward-volume">
+                                    <a class="collapsible-body side-nav-leaf" href="/dashboard?dt=pos&dty=false&cat=vol&id=pos-outward-volume" data-i18n="">
+                                        <i style="font-size:16px; color:lightseagreen" class="material-icons">show_chart</i><span>Volume Graph</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="bold top-node">
+            <a class="collapsible-header waves-effect waves-cyan " href="#">
+                <i class="material-icons" style="color:cornflowerblue">table_chart</i><span class="menu-title"
+                                                                                            data-i18n="">INDUSTRY STATISTICS</span>
+            </a>
+            <div class="collapsible-body">
+                <ul class="collapsible collapsible-sub" data-collapsible="accordion">
+
+                    @foreach (var item in Model)
+                    {
+
+                       
+                        <li id="@item.Content.AliasPart.Alias">
+                            <a class="collapsible-body side-nav-leaf" href="/dashboard/istat/@item.Content.AliasPart.Alias" data-i18n="">
+                                <i class="material-icons" style="font-size: 16px;color:darkolivegreen">bar_chart</i><span>@item.Content.TitlePart.Title</span>
+                            </a>
+                        </li>
+                    }
+
+
+                </ul>
+            </div>
+        </li>
+
+    </ul>
+    <div class="navigation-background"></div>
+    <a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only"
+       href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
+
+
+</aside>

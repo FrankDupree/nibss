@@ -1,0 +1,13 @@
+﻿@media only screen and (max-width: 768px) {
+    .uk-card-body {
+        padding : 2% 4%;
+    }
+    .icon-bar a:hover {
+        background-color: #9d7c13
+    }
+
+    .icon-bar a {
+        background-color: rgba(44, 87, 6, 0.2);
+        color: #2c5706
+    }
+}

@@ -1,0 +1,101 @@
+﻿@page "/news/{id}"
+@inject OrchardCore.IOrchardHelper Orchard
+
+@addTagHelper *, OrchardCore.Media
+@using nibss_orchad_azure.Models
+
+@{
+    var Blog = await Orchard.GetContentItemByHandleAsync($"alias:Blog");
+    Banner banner = new Banner
+    {
+        Title = Blog.Content.Banner.BannerTitle.Text,
+        Text = Blog.Content.Banner.BannerText.Text,
+        ImageUrl = Blog.Content.Banner.BannerImage.Paths[0],
+        ButtonUrl = Blog.Content.Banner.BannerButtonURL.Text,
+        TitleSize = Blog.Content.Banner.TitleSize.Value
+    };
+}
+
+@{
+    var blogPost = await Orchard.GetContentItemByIdAsync(Id);
+    ViewData["Title"] = blogPost.DisplayText;
+
+
+    string imgUrl;
+    int i = blogPost.Content.BlogPost.BlogImage.Paths.Count;
+    if (i == 0)
+    {
+        imgUrl = "/img/640x4_3.png";
+    }
+    else
+    {
+        imgUrl = Orchard.AssetUrl((string)blogPost.Content.BlogPost.BlogImage.Paths[0]);
+    }
+
+}
+
+@functions
+{
+    [FromRoute]
+    public string Id { get; set; }
+}
+
+
+
+@await Html.PartialAsync("Partials/_Banner", banner)
+
+<div class="uk-section uk-padding-small">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid-medium" uk-grid>
+            <div class="uk-width-3-4@m">
+                <p class="uk-heading-line uk-text-small uk-width-1-4"><span>OUR BLOG POST</span></p>
+                <div class="uk-margin-small"><img alt="Blog Post Image" src='@imgUrl' /></div>
+
+            </div>
+            <div class="uk-margin-1-4@m"></div>
+        </div>
+        <div class="uk-grid-medium" uk-grid>
+            <div class="uk-width-3-4@m">
+
+                <h5 class="small-gold uk-margin-remove-bottom">@blogPost.DisplayText</h5>
+                
+                <p class="uk-margin-small">@Convert.ToDateTime(blogPost.CreatedUtc).ToString("dd/MM/yyyy hh:mm:ss")</p>
+                <div class="uk-margin">
+
+                    <div class="umb-grid">
+                        <div class="grid-section">
+                            <div>
+                                <div class='container'>
+                                    <div class="row clearfix">
+                                        <div class="col-md-12 column">
+                                            <p>@await Orchard.MarkdownToHtmlAsync((string)blogPost.Content.MarkdownBodyPart.Markdown)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="uk-width-1-4@m">
+
+
+                @await Component.InvokeAsync("Footer", new { viewName = "RecentPosts" })
+                @await Component.InvokeAsync("BlogCategory")
+
+
+                <div class="blog-sidebar-header">Archive</div>
+                <ul class="blog-sidebar-list">
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Component.InvokeAsync("PartnersCarousel")
+
+

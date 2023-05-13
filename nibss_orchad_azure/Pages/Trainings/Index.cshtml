@@ -1,0 +1,157 @@
+﻿@page
+
+@using OrchardCore.ContentManagement
+@using OrchardCore.ContentFields.Indexing
+@using nibss_orchad_azure.Models
+
+
+
+@inject OrchardCore.IOrchardHelper Orchard;
+@addTagHelper *, OrchardCore.Media
+
+
+@{
+    ViewData["Title"] = "Trainings";
+    var training = await Orchard.GetContentItemByHandleAsync($"alias:training-page");
+
+    //create Banner Object
+    Banner banner = new Banner();
+    banner.Title = training.Content.Banner.BannerTitle.Text;
+    banner.Text = training.Content.Banner.BannerText.Text;
+    banner.ImageUrl = training.Content.Banner.BannerImage.Paths[0];
+    banner.ButtonUrl = training.Content.Banner.BannerButtonURL.Text;
+    banner.TitleSize = training.Content.Banner.TitleSize.Value;
+
+
+
+}
+@await Html.PartialAsync("Partials/_Banner", banner)
+
+@{
+    IDictionary<string,object> para = new Dictionary<string, object>();
+    DateTime localDate = DateTime.Now;
+    string mm = localDate.Month.ToString();
+    string dd = localDate.Day.ToString();
+
+    if (mm.Length == 1) {
+        mm = "0" + mm;
+    }
+
+    if (dd.Length == 1) {
+        dd = "0" + dd;
+    }
+    string d = localDate.Year.ToString() + mm + dd + "000000";
+
+
+    para.Add("date", d);
+    var selection = await  Orchard.ContentQueryAsync("UpcomingTrainings",para);
+ }
+
+@Orchard.ConsoleLog(selection)
+
+<div class="uk-section uk-padding-small">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid-medium uk-grid uk-flex uk-flex-middle">
+            <div class="uk-width-1-1@m">
+                <div class="uk-container">
+                    <div uk-grid>
+                        <div class="uk-width-1-3@m">
+                            <h6 class="uk-heading-line uk-text-small"><span>@training.Content.PageHeader.SubHeading.Text</span></h6>
+                        </div>
+                        <div class="uk-width-1-1@m uk-margin-small">
+                            <h2 class="page_title">@training.Content.PageHeader.heading.Text</h2>
+                        </div>
+                        <div class="uk-width-1-1@m uk-margin-small">
+                            @training.Content.MarkdownBodyPart.Markdown
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="uk-section uk-padding-small">
+    <div class="uk-container uk-container-small">
+        <div class="uk-child-width-expand@m uk-grid-small" uk-grid>
+
+           
+
+
+            @if (selection.Count() == 0)
+            {
+                <h2 class="list-header uk-text-center">No trainings available at the moment</h2>
+            }
+            @foreach (var item in selection)
+            {
+                string imgUrl = "";
+                int i = item.Content.FeaturedImage.image.Paths.Count;
+                if (i == 0)
+                {
+                    imgUrl = "/img/640x4_3.png";
+                }
+                else
+                {
+                    imgUrl = Orchard.AssetUrl((string)item.Content.FeaturedImage.image.Paths[0]);
+                }
+                <diV>
+                    <div class="uk-card uk-card-default">
+                        <div class="uk-card-media-top">
+                            <img style="width: 100%" src="@imgUrl" alt="" />
+                        </div>
+                        <div class="uk-card-body uk-padding-small training-card-body">
+
+                            <h6 class="training-course-title">
+                                @item.Content.TitlePart.Title
+                            </h6>
+                            @{
+                                var modules = item.Content.CourseModules.ContentItems;
+                                var objectives = item.Content.CourseObjectives.ContentItems;
+
+                            }
+                            <h5 class="uk-margin-remove training-course-module">Course Modules</h5>
+                            <ul class="uk-list uk-list-square training-course-modules uk-margin-small-top">
+                                @foreach (var mod in modules)
+                                {
+                                    <li>@mod.DisplayText</li>
+                                }
+
+                            </ul>
+                            <h6 class="list-header uk-margin-remove training-course-objective-title">COURSE OBJECTIVE</h6>
+                            <ul class="uk-list uk-list-decimal uk-margin-small-top training-course-modules" style="font-size:9pt">
+
+                                @foreach (var obj in objectives)
+                                {
+                                    <li>@obj.DisplayText</li>
+                                }
+
+                            </ul>
+                            <h6 class="list-header uk-margin-remove-top training-course-objective-title">
+                                N<span>@string.Format("{0:N}", item.Content.Training.Cost.Value)</span>
+                                /Month
+                            </h6>
+
+                            <a class="uk-button uk-button-primary button-base uk-width-1-1 uk-margin-small-top" href="/trainings/@item.Content.AliasPart.Alias">Enrol Now</a>
+
+                        </div>
+                    </div>
+                </diV>
+            }
+
+
+        </div>
+    </div>
+</div>
+
+<div class="uk-section uk-padding-small">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid-medium uk-grid uk-flex uk-flex-middle">
+            <div class="training-main-cta uk-width-1-1@m uk-padding-small uk-margin-small-top button-base2" style="background: #8e7403;padding:2%; margin:0px 0px 0px 3%; text-align:center;">
+                <h5><a style="color:white;text-decoration:none" href="@training.Content.TrainingPageTemplate.CTAURL.Text">@training.Content.TrainingPageTemplate.CTAtext.Text</a></h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@await Component.InvokeAsync("PartnersCarousel")

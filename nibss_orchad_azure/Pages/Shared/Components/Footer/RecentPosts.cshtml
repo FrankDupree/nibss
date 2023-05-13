@@ -1,0 +1,14 @@
+﻿@model IEnumerable<OrchardCore.ContentManagement.ContentItem>
+
+
+@inject OrchardCore.IOrchardHelper Orchard
+
+<div class="blog-sidebar-header">Recent Posts</div>
+<ul class="blog-sidebar-list">
+    @foreach (var item in Model)
+    {
+        <li class="uk-margin-small-bottom">
+            <a href="/news/@item.ContentItemId">@item.DisplayText</a>
+        </li>
+    }
+</ul>

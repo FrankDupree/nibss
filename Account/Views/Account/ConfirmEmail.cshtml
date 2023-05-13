@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Confirm Email";
+}
+
+
+<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+    <div class="uk-width-1-1">
+        <div class="uk-container">
+            <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                <div class="uk-width-1-1@s">
+                    <div class="uk-margin uk-width-1-2@m uk-margin-auto">
+                        <h3 style="color:#2c5702 !important;" class="uk-text-center">Email confirmation</h3>
+                        <hr />
+                        <div id="captcha-result" class="clear">
+                            <p class="uk-text-center">
+                                Thank you for confirming your email.
+                            </p>
+                            <p class="uk-text-center">
+                                <a href="@Url.Content("~/")">Home</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

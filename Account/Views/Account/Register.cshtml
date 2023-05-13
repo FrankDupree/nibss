@@ -1,0 +1,128 @@
+﻿@using Account.Controllers
+@using Account.ViewModels
+@using Microsoft.AspNetCore.Hosting
+@inject IHostingEnvironment HostingEnvironment
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Register";
+}
+
+
+@model RegistrationViewModel
+
+@{
+
+    string folderPath = System.IO.Path.Combine(
+    System.IO.Directory.GetCurrentDirectory(), "wwwroot", "content");
+    var lines = System.IO.File.ReadLines(System.IO.Path.Combine(folderPath, "sectors.csv")).Select(a => a.Split(';'));
+
+    List<SelectListItem> sectors = new List<SelectListItem>();
+
+    foreach (var item in lines)
+    {
+        var data = item[0].Split(',');
+        sectors.Add(new SelectListItem { Text = data[1], Value = data[0] });
+    }
+}
+
+
+<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+    <div class="uk-width-1-1">
+        <div class="uk-container">
+            <div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+                <div class="uk-width-1-1@s">
+                    <div class="uk-margin uk-width-1-2@m uk-margin-auto">
+                        <h3 class="uk-card-title uk-text-left">Register</h3>
+                        <hr />
+                        <div id="captcha-result" class="clear">
+                            <h3 style="color:#2c5702 !important;" class="uk-text-center">@(ViewData["msg"] != null ? ViewData["msg"].ToString() : "")</h3>
+                        </div>
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { action = "/account/register", @class = "uk-grid-small uk-grid" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="uk-width-1-1@s">
+                                @Html.ValidationSummary(true)
+                            </div>
+
+                            <div class="uk-width-1-2@s">
+                                @Html.LabelFor(model => model.Name, new { htmlAttributes = new { @class = "uk-form-label" } })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "uk-input", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Name, null, new { @class = "help-block" })
+                            </div>
+                            <div class="uk-width-1-2@s">
+                                @Html.LabelFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "uk-form-label" } })
+                                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "uk-input", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.EmailAddress, null, new { @class = "help-block" })
+                            </div>
+                            <div class="uk-width-1-2@s">
+                                @Html.LabelFor(model => model.Phone, new { htmlAttributes = new { @class = "uk-form-label" } })
+                                @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "uk-input", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Phone, null, new { @class = "help-block" })
+                            </div>
+                            <div class="uk-width-1-2@s">
+                                @Html.LabelFor(model => model.Organisation, new { htmlAttributes = new { @class = "uk-form-label" } })
+                                @Html.EditorFor(model => model.Organisation, new { htmlAttributes = new { @class = "uk-input", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Organisation, null, new { @class = "help-block" })
+                            </div>
+                            <div class="uk-width-1-1@s">
+                                @Html.LabelFor(model => model.Sector, new { htmlAttributes = new { @class = "uk-form-label" } })
+                                @Html.DropDownListFor(model => model.Sector,
+                                      new SelectList(sectors,
+                                        "Value", // property to be set as Value of dropdown item
+                                        "Text",  // property to be used as text of dropdown item
+                                        "0"), // value that should be set selected of dropdown
+                                         new { @class = "uk-input" })
+                                @Html.ValidationMessageFor(model => model.Sector, null, new { @class = "help-block" })
+                            </div>
+                            <div class="uk-width-1-1" style="margin-top:10px; margin-bottom:10px">
+                                <small><span style="color:red">*</span> Password should be at least 8 characters, including 1 uppercase letter, 1 special character, and alphanumeric characters</small>
+                            </div>
+                            <div class="uk-width-1-2@s">
+                                @Html.LabelFor(model => model.Password, new { htmlAttributes = new { @class = "uk-form-label" } })
+                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "uk-input", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.Password, null, new { @class = "help-block" })
+                            </div>
+
+
+                            <div class="uk-width-1-2@s">
+                                @Html.LabelFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "uk-form-label" } })
+                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "uk-input", autocomplete = "off" } })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, null, new { @class = "help-block" })
+                            </div>
+                            <div class="uk-width-1-1@s">
+                                <br />
+                                @Html.CheckBoxFor(x => x.TermsAndConditions)
+                                <a href="/services/terms-of-use" target="_blank">I accept the Terms of use</a>
+                                <br />
+                                @Html.ValidationMessageFor(x => x.TermsAndConditions)
+                            </div>
+                            <div class="uk-width-1-1@s uk-text-right uk-margin-small-top uk-margin-large-bottom">
+                                <button type="submit" class="uk-button uk-button-medium button-base">Register</button>
+                            </div>
+                        }
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    var defaultRangeValidator = $.validator.methods.range;
+    $.validator.methods.range = function (value, element, param) {
+        if (element.type === 'checkbox') {
+            return element.checked;
+        } else {
+            return defaultRangeValidator.call(this, value, element, param);
+        }
+    }
+</script>
+}
+

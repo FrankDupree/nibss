@@ -1,0 +1,61 @@
+﻿@page
+@using nibss_orchad_azure.Models
+
+@inject OrchardCore.IOrchardHelper Orchard
+
+@{
+    ViewData["Title"] = "Enrollment Centers";
+    var ob = await Orchard.GetContentItemByHandleAsync("alias:diaspora");
+
+    //create Banner Object
+    Banner banner = new Banner
+    {
+        Title = ob.Content.Banner.BannerTitle.Text,
+        Text = ob.Content.Banner.BannerText.Text,
+        ImageUrl = ob.Content.Banner.BannerImage.Paths[0],
+        ButtonUrl = ob.Content.Banner.BannerButtonURL.Text,
+        TitleSize = ob.Content.Banner.TitleSize.Value
+    };
+
+
+
+}
+@await Html.PartialAsync("Partials/_Banner", banner)
+
+
+
+
+<div class="uk-container uk-container-small uk-margin-medium-top">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid">
+            <div class="uk-width-1-3">
+                <h6 class="uk-heading-line uk-text-small"><span>@ob.Content.PageHeader.SubHeading.Text</span></h6>
+            </div>
+            <div class="uk-width-1-1 uk-margin-small">
+                <h2 class="page_title">@ob.Content.PageHeader.heading.Text</h2>
+            </div>
+            <div class="uk-width-1-1 uk-margin-small">
+                @Html.Raw(ob.Content.HtmlBodyPart.Html)
+            </div>
+            <div class="uk-width-1-1 uk-margin-medium">
+                <h4 class="training-course-title" style="font-size:14pt">Enrollment Centers</h4>
+                <ul uk-accordion>
+                    @foreach (var item in  ob.Content.BagPart.ContentItems) { 
+                    <li>
+                        <a class="uk-accordion-title" href="#">
+                            @item.DisplayText
+                        </a>
+                        <div class="uk-accordion-content">
+                            @Html.Raw(item.HtmlBodyPart.Html)
+                        </div>
+                    </li>
+                    }
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+@await Component.InvokeAsync("PartnersCarousel")
+

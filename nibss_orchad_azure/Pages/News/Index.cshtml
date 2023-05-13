@@ -1,0 +1,104 @@
+﻿@page
+@model nibss_orchad_azure.Pages.News.IndexModel
+@using nibss_orchad_azure.Models
+@{
+    ViewData["Title"] = "Media";
+    Banner banner = new Banner
+    {
+        Title = Model.Blog.Content.Banner.BannerTitle.Text,
+        Text = Model.Blog.Content.Banner.BannerText.Text,
+        ImageUrl = Model.Blog.Content.Banner.BannerImage.Paths[0],
+        ButtonUrl = Model.Blog.Content.Banner.BannerButtonURL.Text,
+        TitleSize = Model.Blog.Content.Banner.TitleSize.Value
+    };
+    var selection = Model.Selection;
+
+}
+
+@await Html.PartialAsync("Partials/_Banner", banner)
+
+
+<div class="uk-section uk-padding-small">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid-medium" uk-grid>
+            <div class="uk-width-3-4@m">
+                <p class="uk-heading-line uk-text-small uk-width-1-4"><span>OUR BLOG POST</span></p>
+
+            </div>
+            <div class="uk-margin-1-4@m"></div>
+        </div>
+        <div class="uk-grid-medium" uk-grid>
+            <div class="uk-width-3-4@m">
+                @if(Model.NoData) {
+                   <div style="text-align:center">
+                       <h4>No Post To Show. <br/><small>Go Back</small></h4>
+                   </div>
+                }else {
+                @foreach(var item in selection) {
+                <div class="uk-grid-medium uk-margin-medium-bottom" uk-grid>
+                    <div class="uk-width-1-3@m">
+                        @{
+                             string imgUrl;
+                             int i = item.Content.BlogPost.BlogImage.Paths.Count;
+                             if (i == 0)
+                             {
+                                 imgUrl = "/img/640x4_3.png";
+                             }
+                             else
+                             {
+                                 imgUrl = Orchard.AssetUrl((string)item.Content.BlogPost.BlogImage.Paths[0]);
+                             }
+                        }
+
+                        <div class="image-box"><img alt="Image for @item.DisplayText" src="@imgUrl" /></div>
+
+                    </div>
+                    <div class="uk-width-2-3@m">
+                        <h5 class="small-gold uk-margin-small"><a class="small-gold" style="text-decoration:none" href="/news/@item.ContentItemId">@item.DisplayText</a></h5>
+                        
+                        <p class="uk-margin-remove"><strong>@Convert.ToDateTime(item.CreatedUtc).ToString("dd/MM/yyyy hh:mm:ss")</strong></p>
+                        
+                        @{
+                            string excerpt = (string)@item.Content.MarkdownBodyPart.Markdown;
+                            excerpt = excerpt.Substring(0, 225);
+                            excerpt = excerpt + "..";
+
+                        }
+                        <p>@excerpt</p>
+                    </div>
+
+                </div>
+                }
+                }
+
+                <div style="text-align:center">
+                    @if(Model.HasPrevious) {
+                    <a class="blog-controls" href="/news?pg=@Model.PreviousPage"><i  class="fa fa-angle-double-left"></i>  Previous</a>
+                    }
+                    @if(Model.HasNext) {
+                    <a class="blog-controls" href="/news?pg=@Model.NextPage">Next <i class="fa fa-angle-double-right"></i></a>
+                }
+
+                </div>
+            </div>
+            <div class="uk-width-1-4@m">
+
+
+                @await Component.InvokeAsync("Footer", new { viewName = "RecentPosts" })
+
+                @await Component.InvokeAsync("BlogCategory")
+
+                <div class="blog-sidebar-header">Archive</div>
+                <ul class="blog-sidebar-list">
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Component.InvokeAsync("PartnersCarousel")
+
+
+
+

@@ -1,0 +1,132 @@
+﻿@page
+@model nibss_orchad_azure.Pages.IndexModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@inject OrchardCore.IOrchardHelper orchard;
+
+
+@{
+    ViewData["Title"] = "Payment Innovation";
+    var about = await Orchard.GetContentItemByHandleAsync("alias:payment");
+
+    //create Banner Object
+    nibss_orchad_azure.Models.Banner banner = new nibss_orchad_azure.Models.Banner
+    {
+        Title = about.Content.Banner.BannerTitle.Text,
+        Text = about.Content.Banner.BannerText.Text,
+        ImageUrl = about.Content.Banner.BannerImage.Paths[0],
+        ButtonUrl = about.Content.Banner.BannerButtonURL.Text,
+        TitleSize = about.Content.Banner.TitleSize.Value
+    };
+    string confirmation = (string)ViewData["confirmation"];
+}
+@await Html.PartialAsync("Partials/_Banner", banner)
+<div class="uk-container uk-container-small uk-margin-small-top">
+    <p class="uk-heading-line uk-text-small uk-width-1-4"><span>@about.Content.PageHeader.SubHeading.Text</span></p>
+    <h4 class="page_title">@about.Content.PageHeader.heading.Text</h4>
+</div>
+
+
+<div class="uk-container uk-container-small uk-margin-medium-top">
+    <div class="uk-grid uk-grid-stack" uk-grid>
+        <div class="uk-width-1-1@s">
+            <div class="uk-margin uk-width-1-1 uk-margin-auto">
+                @if (confirmation != "init")
+                {
+                    if (confirmation == "true")
+                    {
+                        <div class="uk-placeholder uk-text-center">
+                            <strong>Message sent successfully...we will get back to you!</strong>.
+                            <p>
+                                <a href="/" class="uk-button button-base">
+                                    Continue From Home Page
+                                </a>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+
+                        <div class="uk-placeholder uk-text-center">
+                            <strong style="color:red">Error sending message...please try again!</strong>.
+                            <p>
+                                <a href="/payment-innovation" class="uk-button button-base2">
+                                    GO BACK
+                                </a>
+                            </p>
+                        </div>
+                    }
+                }
+
+                else
+                {
+                    using (Html.BeginForm(null, null, FormMethod.Post, new { action = "", @class = "uk-grid-small uk-grid" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="uk-width-1-1@s">
+                            @Html.ValidationSummary(true)
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label className="uk-form-label" for="form-stacked-select">First Name</label>
+                            <input asp-for="ServiceContact.FirstName" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="ServiceContact.FirstName"></span>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label className="uk-form-label" for="form-stacked-select">Last Name</label>
+                            <input asp-for="ServiceContact.LastName" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="ServiceContact.LastName"></span>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label className="uk-form-label" for="form-stacked-select">Email Address</label>
+                            <input asp-for="ServiceContact.Email" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="ServiceContact.Email"></span>
+                        </div>
+                        <div class="uk-width-1-2@s">
+                            <label className="uk-form-label" for="form-stacked-select">Phone Number</label>
+                            <input asp-for="ServiceContact.Phone" class="uk-input" />
+                            <span class="error-msg color-danger" asp-validation-for="ServiceContact.Phone"></span>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <label className="uk-form-label" for="form-stacked-select">Give a short description of your idea (or innovation/invention) and its background*</label>
+                            <textarea asp-for="ServiceContact.Idea" className="uk-textarea" rows="10" style="width:inherit;"></textarea>
+                            <span class="error-msg color-danger" asp-validation-for="ServiceContact.Idea"></span>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <label className="uk-form-label" for="form-stacked-select">Describe the “problems” or needs that your idea solves*</label>
+                            <textarea asp-for="ServiceContact.Problems" className="uk-textarea" rows="10" style="width:inherit;"></textarea>
+                            <span class="error-msg color-danger" asp-validation-for="ServiceContact.Problems"></span>
+                        </div>
+                        <div class="uk-width-1-1">
+                            <label className="uk-form-label" for="form-stacked-select">Describe the uniqueness of your idea in relation to existing technology or comparable alternatives*</label>
+                            <textarea asp-for="ServiceContact.Uniqueness" className="uk-textarea" rows="10" style="width:inherit;"></textarea>
+                            <span class="error-msg color-danger" asp-validation-for="ServiceContact.Uniqueness"></span>
+                        </div>
+                        <div class="uk-width-1-1 uk-text-right">
+                            <div class="g-recaptcha" data-sitekey="@Model.CaptchaClientKey" data-callback="correctCaptcha"></div>
+                        </div>
+                        <div class="uk-width-1-1@s uk-text-right uk-margin-small-top uk-margin-large-bottom">
+                            <button  id="form-submit-btn" type="submit" class="uk-button uk-button-medium button-base" disabled>SUBMIT</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Component.InvokeAsync("PartnersCarousel")
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script>
+    function correctCaptcha() {
+        document.getElementById("form-submit-btn").disabled = false;
+    }
+</script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+

@@ -1,0 +1,24 @@
+﻿@model OrchardCore.ContentManagement.ContentItem
+
+@addTagHelper *, OrchardCore.Media
+
+
+
+<div class="uk-container uk-container-small uk-margin-large-bottom uk-margin-medium-top">
+    <h4 class="uk-text-center list-header" style="margin:2% 0 3% 0px;">OUR PARTNERS</h4>
+
+    <div id="current-partner-slide"></div>
+    <div id="partners-slider" uk-grid>
+
+
+        @foreach (var image in Model.Content.PartnersCarousel.Images.Paths)
+        {
+            
+            <div class="partners-slides uk-width-1-1" style="height:40px">
+
+                <img alt="Logos of NIBSS Partners"  asset-src="@image" uk-img />
+            </div>
+
+        }
+    </div>
+</div>

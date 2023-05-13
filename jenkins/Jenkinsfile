@@ -1,0 +1,199 @@
+def AnsibleDeploy(){
+    sh 'curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.2-x86_64.rpm'
+    sh 'curl -L -O https://nibss-dev.github.io/Jenkins-Packages/filebeat/filebeat-${GIT_BRANCH}.yml'
+    sh 'pwd && ls -al'
+    sh 'touch hosts.ini && echo ${hosts_ini} | base64 --decode > hosts.ini'
+    sh 'ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook --timeout 60 -i hosts.ini ansible/playbook.yml'
+}
+
+def InjectVars(){
+//    sh 'echo ${app_settings} | base64 --decode > appsettings.json'
+//    sh 'touch src/Common/EventBus.ActiveMQ.IntegrationTests/activemq-test.config.json && echo ${activemq_test_config} | base64 --decode > src/Common/EventBus.ActiveMQ.IntegrationTests/activemq-test.config.json'
+}
+
+pipeline {
+    environment {
+        IMG_TAG="${sh(script: 'echo \$GIT_COMMIT | cut -c -7 | tr -d \'[:space:]\' ', returnStdout: true ) }"
+        APP_NAME="nibss-website-backend"
+        SONAR_PROJECT="nibss-dev_NIBSS-Website"
+        SLACK_CHANNEL="nibss-website-development"
+    }
+
+    agent {
+        dockerfile {
+            dir 'jenkins'
+        }
+    }
+
+    stages {
+       stage('Unit Testing'){
+           steps{
+               sh '''
+               cd SPA
+               npm ci
+               npm test
+               '''
+               sh "mkdir -p CodeCoverage/bin/Debug/netcoreapp3.1//wwwroot/content/ && cp  nibss_orchad_azure/wwwroot/content/degrees.csv CodeCoverage/bin/Debug/netcoreapp3.1//wwwroot/content/"
+               sh "mkdir -p CodeCoverage/bin/Debug/netcoreapp3.1//wwwroot/cv/ && cp  nibss_orchad_azure/wwwroot/cv/* CodeCoverage/bin/Debug/netcoreapp3.1//wwwroot/cv/"
+               sh "cp -r CodeCoverage/Resources CodeCoverage/bin/Debug/netcoreapp3.1/ "
+               sh 'dotnet add "CodeCoverage/CodeCoverage.csproj" package coverlet.msbuild --version 2.9.0'
+               sh 'make test'
+               sh 'ls -la '
+           }
+       }
+        stage('Inject environment Variables') {
+            parallel{
+                stage('to dev') {
+                    steps {
+                        withCredentials([file(credentialsId: 'nibss-website-dev', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'echo ${app_settings} | base64 --decode > nibss_orchad_azure/appsettings.json'
+                        sh 'echo ${ochard_app_settings} | base64 --decode > nibss_orchad_azure/App_Data/Sites/Default/appsettings.json'
+                    }
+                }
+                stage('to qa') {
+                    when { branch 'qa' }
+                    steps {
+                        withCredentials([file(credentialsId: 'nibss-website-qa', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'echo ${app_settings} | base64 --decode > nibss_orchad_azure/appsettings.json'
+                        sh 'echo ${ochard_app_settings} | base64 --decode > nibss_orchad_azure/App_Data/Sites/Default/appsettings.json'
+                    }
+                }
+                stage('to Certification') {
+                    when { branch 'certification' }
+                    steps {
+                        withCredentials([file(credentialsId: 'nibss-website-cert', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'echo ${app_settings} | base64 --decode > nibss_orchad_azure/appsettings.json'
+                        sh 'echo ${ochard_app_settings} | base64 --decode > nibss_orchad_azure/App_Data/Sites/Default/appsettings.json'
+                    }
+                }
+                stage('to DR-Site') {
+                    when { branch 'dr' }
+                    steps {
+                        withCredentials([file(credentialsId: 'nibss-website-dr', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'echo ${app_settings} | base64 --decode > nibss_orchad_azure/appsettings.json'
+                        sh 'echo ${ochard_app_settings} | base64 --decode > nibss_orchad_azure/App_Data/Sites/Default/appsettings.json'
+                    }
+                }
+                stage('to Staging') {
+                    when { branch 'staging' }
+                    steps {
+                        withCredentials([file(credentialsId: 'nibss-website-staging', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'echo ${app_settings} | base64 --decode > nibss_orchad_azure/appsettings.json'
+                        sh 'echo ${ochard_app_settings} | base64 --decode > nibss_orchad_azure/App_Data/Sites/Default/appsettings.json'
+                    }
+                }
+                stage('to master') {
+                    when { branch 'master' }
+                    steps {
+                        withCredentials([file(credentialsId: 'nibss-website-prod', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'echo ${app_settings} | base64 --decode > nibss_orchad_azure/appsettings.json'
+                        sh 'echo ${ochard_app_settings} | base64 --decode > nibss_orchad_azure/App_Data/Sites/Default/appsettings.json'
+                    }
+                }
+            }
+        }
+
+        stage('Sonar Scanner'){
+            parallel{
+                stage('PR'){
+                    when {changeRequest()}
+                    steps{
+                        withCredentials([file(credentialsId: 'nibss-website-dev', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'make sonarqube-PR'
+                    }
+                }
+                stage('Branch'){
+                    when { not{ changeRequest()}}
+                    steps{
+                        withCredentials([file(credentialsId: 'nibss-website-dev', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                        sh 'make sonarqube-BR'
+                        sh 'sleep 1'
+                    }
+                }
+            }
+        }
+
+        stage('Slonack') {
+            when {changeRequest()}
+            steps {
+                withCredentials([file(credentialsId: 'slonack', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                dir('Slonack') {
+                     git branch: 'master', credentialsId: 'github-token', url: 'https://github.com/nibss-dev/slonack'
+                     sh 'ls -l'
+                     sh 'python3 src/slonack/slonack.py ${CHANGE_ID} ${SONAR_PROJECT} ${SLACK_CHANNEL} ${SONAR_AUTH} ${SLACK_APP_AUTH}'
+                }
+            }
+        }
+        stage('Build Frontend'){
+            steps{
+               sh '''
+               cd SPA
+               npm run-script build
+               ls -la
+               '''
+            }
+        }
+        stage('Build Website Image'){
+            steps{
+                sh "docker build -t $APP_NAME:$IMG_TAG . "
+                sh "docker save -o $APP_NAME:$IMG_TAG'.tar' $APP_NAME:$IMG_TAG"
+                sh 'ls -la'
+            }
+        }
+
+        stage('Deploy to dev') {
+           when { branch 'dev#' }
+            steps {
+                withCredentials([file(credentialsId: 'nibss-website-dev', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                sh 'env'
+                AnsibleDeploy()
+            }
+        }
+
+        stage('Deploy to QA') {
+            when { branch 'qa' }
+            steps {
+                withCredentials([file(credentialsId: 'nibss-website-qa', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                AnsibleDeploy()
+            }
+        }
+
+        stage('Deploy to Certification') {
+            when { branch 'certification' }
+            steps {
+                withCredentials([file(credentialsId: 'nibss-website-cert', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                AnsibleDeploy()
+            }
+        }
+
+        stage('Deploy to staging') {
+            when { branch 'staging' }
+            steps {
+                withCredentials([file(credentialsId: 'nibss-website-staging', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                AnsibleDeploy()
+            }
+        }
+
+        stage('Deploy to master') {
+            when { branch 'master' }
+            steps {
+                withCredentials([file(credentialsId: 'nibss-website-prod', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                AnsibleDeploy()
+            }
+        }
+
+        stage('Deploy to DR') {
+            when { branch 'dr' }
+            steps {
+                withCredentials([file(credentialsId: 'nibss-website-dr', variable: 'PIPELINE_ENV')]) { load "$PIPELINE_ENV"}
+                AnsibleDeploy()
+            }
+        }
+    }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
+}

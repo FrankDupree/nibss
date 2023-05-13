@@ -1,0 +1,66 @@
+﻿@model IEnumerable<OrchardCore.ContentManagement.ContentItem>
+
+
+@inject OrchardCore.IOrchardHelper Orchard
+
+
+<!--twitter-->
+@await Html.PartialAsync("Partials/_Social")
+<!-- FOOTER -->
+<footer class="uk-section uk-section-secondary  uk-padding-remove-bottom">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid uk-grid-small" data-uk-grid>
+            <div class="uk-width-1-3@m" style="color:white">
+                <h5 style="color:white">OUR COMPANY</h5>
+                <p style="color:white !important">Nigeria Inter-Bank Settlement System Plc (NIBSS) was incorporated in 1993 and is owned by all licensed banks including the Central Bank of Nigeria (CBN). It commenced operations in June 1994.</p>
+            </div>
+            <div class="uk-width-1-6@m">
+                <h5>USEFUL LINKS</h5>
+                <div class="uk-flex uk-flex-between">
+                    <div>
+                        <ul class="uk-list">
+                            <li><a href="/services/bank-verification-number-bvn">BVN </a></li>
+                            <li><a href="/about">About</a></li>
+                            <li><a href="/trainings">Trainings </a></li>
+                            <li><a href="/partners/">Partners </a></li>
+                            <li><a href="/careers/">Careers </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-1-6@m">
+                <h5>SOCIALS</h5>
+                <div class="uk-flex uk-flex-between">
+                    <div>
+                        <ul class="uk-list">
+                            <li><a rel="noopener noreferrer" target="_blank" href="https://www.facebook.com/NIBSSPLC"><i class='fa fa-facebook footer-icon'></i> Facebook </a></li>
+
+                            <li><a rel="noopener noreferrer" target="_blank" href="https://twitter.com/NIBSS_NG"><i class='footer-icon fa fa-twitter'></i>Twitter </a></li>
+                            <li><a rel="noopener noreferrer" target="_blank" href="https://www.youtube.com/channel/UCLD7Y56uWlXKj_XxMA-61AQ"><i class='fa fa-youtube footer-icon'></i>Youtube </a></li>
+                            <li><a rel="noopener noreferrer" target="_blank" href="https://www.instagram.com/nibssplc/"><i class='fa fa-instagram footer-icon'></i>Instagram </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-1-3@m subt">
+                <h5>RECENT NEWS</h5>
+                <div class="uk-column-1-2">
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li class="uk-column-span uk-margin-small-bottom">
+                                <a href="/news/@item.ContentItemId">@item.DisplayText</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="uk-width-1-1 uk-text-center" style="color:white">
+                <p><a href="/services/terms-of-use/">Terms of Use</a> l <a href="/policy/privacy-policy">Privacy Policy</a> l <a href="/policy/Cookie_Policy">Cookie Policy</a></p>
+                <p style="color:white !important">© Nigeria Inter-Bank Settlement System. 2021</p>
+            </div>
+        </div>
+    </div>
+    </footer>
+
+

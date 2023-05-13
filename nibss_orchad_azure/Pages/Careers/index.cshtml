@@ -1,0 +1,32 @@
+﻿@page
+@using nibss_orchad_azure.Models
+@{
+    ViewData["Title"] = "Careers";
+
+    var about = await Orchard.GetContentItemByHandleAsync("alias:careers-banner");
+
+    //create Banner Object
+    Banner banner = new Banner
+    {
+        Title = about.Content.Banner.BannerTitle.Text,
+        Text = about.Content.Banner.BannerText.Text,
+        ImageUrl = about.Content.Banner.BannerImage.Paths[0],
+        ButtonUrl = about.Content.Banner.BannerButtonURL.Text,
+        TitleSize = about.Content.Banner.TitleSize.Value
+    };
+}
+@await Html.PartialAsync("Partials/_Banner", banner)
+
+    @Html.AntiForgeryToken()
+   
+
+
+
+
+<div id="init"></div>
+
+@await Component.InvokeAsync("PartnersCarousel")
+
+@section Scripts{
+    <script src="~/js/careers.js" asp-append-version="true"></script>
+}

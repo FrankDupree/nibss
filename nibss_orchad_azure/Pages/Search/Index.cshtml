@@ -1,0 +1,131 @@
+﻿@page
+@model nibss_orchad_azure.Pages.Search.IndexModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@inject OrchardCore.ContentManagement.Display.IContentItemDisplayManager DisplayManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    var searchQuery = @Orchard.HttpContext.Request.Query["Terms"].ToString();
+}
+<!-- Page Header -->
+<div class="uk-section" style="padding:0px; margin-bottom:2%">
+    <div class="section-hero uk-background-blend-color-burn uk-background-cover uk-section-large1 cta uk-height-medium uk-flex uk-flex-center uk-flex-middle uk-background-cover uk-light" data-src="/media/city.jpg" uk-img style="background-color: #2c5702 !important;">
+        <div class="uk-container uk-container-small uk-text-center">
+            <div class="uk-grid-large uk-grid uk-flex uk-flex-middle">
+                <div class="uk-container">
+                    <h4>Financial Services solutions made easy.</h4>
+                    <p>
+                        We're supporting the finance industry with an extensive range of <br />solutions to meet ever-increasing digital and customer expectations and regulatory demand.
+                    </p>
+                    <div uk-grid>
+                        <form action="/search" method="get">
+                            <div class="uk-margin" uk-margin>
+                                <div uk-form-custom="target: true">
+                                    <input name="terms" class="uk-input uk-form-width-large srch-form" type="text" placeholder="SEARCH" value="" style="color:black;" />
+                                </div>
+                                <button class="uk-button uk-button-default">Submit</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(searchQuery))
+{
+    <div class="uk-section uk-padding-medium">
+        <div class="uk-container uk-container-small">
+            <div class="uk-grid-large uk-flex uk-flex-middle" uk-grid>
+                <div class="uk-width-1-1">
+                    <div class="uk-container">
+                        @{
+                            var results = Model.SearchIndexViewModel.SearchResults.ContentItems;
+                            long resultCount = results != null && results.Any() ? results.Count() : 0;
+                            string untrustedInput = Model.SearchIndexViewModel.Terms;
+                            <h3 style="text-align:center" class="uk-margin-large-bottom">Your search for <strong>@untrustedInput</strong> returned @resultCount  result@(resultCount == 1 ? "" : "s") </h3>
+
+                            if (resultCount > 0)
+                            {
+
+                                @foreach (var result in results)
+                                {
+                                    string path = "";
+                                    string flag = @result.ContentType;
+                                    string route = result.ContentItem.Content.AliasPart.Alias;
+                                    if (flag.ToLower() == "service")
+                                    {
+                                        path = "/services/" + route;
+                                    }
+                                    else if (flag.ToLower() == "blogpost")
+                                    {
+                                        path = "/news/" + result.ContentItemId;
+                                    }
+                                    else if (flag.ToLower() == "training")
+                                    {
+                                        path = "/trainings/" + route;
+                                    }
+                                    <div class="uk-grid-medium" uk-grid>
+                                        <div class="uk-width-1-1">
+
+                                            <h5 class="small-gold uk-margin-small"><a class="small-gold" style="text-decoration: none" href="@path">@result.DisplayText</a></h5>
+
+                                            @if (flag.ToLower() == "service")
+                                            {
+                                                <p>
+                                                    @if (result.ContentItem.Content.Service.ServiceViewType.Text == "1")
+                                                    {
+                                                        @result.ContentItem.Content.Service.ServiceOverview.Markdown
+                                                    }
+                                                    else if (result.ContentItem.Content.Service.ServiceViewType.Text == "2")
+                                                    {
+                                                        <div style="line-height: 1.3;max-height: 60px !important; overflow-y: hidden; padding-bottom: 5px">
+                                                            @Html.Raw(result.ContentItem.Content.HtmlBodyPart.Html)
+                                                        </div>
+                                                    }
+
+                                                    else
+                                                    {
+                                                        @result.ContentItem.Content.Service.ServiceOverview.Markdown
+                                                    }
+
+                                                </p>
+                                            }
+                                            else if (flag.ToLower() == "training")
+                                            {
+                                                var objectives = result.ContentItem.Content.CourseObjectives.ContentItems;
+                                                <h6 class="list-header uk-margin-remove">COURSE OBJECTIVE</h6>
+                                                <ul class="uk-list uk-list-decimal uk-margin-small-top training-course-modules" style="font-size:9pt">
+
+                                                    @foreach (var obj in objectives)
+                                                    {
+                                                        <li>@obj.DisplayText</li>
+                                                    }
+
+                                                </ul>
+                                                <h6 class=" uk-margin-remove-top">
+                                                    <span style="font-weight: bold">N @string.Format("{0:N}", result.ContentItem.Content.Training.Cost.Value)</span>
+                                                    <strong>/Month</strong>
+                                                </h6>
+                                            }
+                                            else if (flag.ToLower() == "blogpost")
+                                            {
+
+                                                <p class="uk-margin-remove">Published:  <strong>@result.ContentItem.PublishedUtc</strong></p>
+                                                <div style="line-height: 1.3;max-height: 60px !important; overflow-y: hidden; padding-bottom: 5px">@result.ContentItem.Content.MarkdownBodyPart.Markdown</div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <hr />
+                                }
+
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

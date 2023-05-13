@@ -1,0 +1,53 @@
+@{
+	Layout = "_Layout";
+	ViewData["Title"] = "Login";
+}
+
+
+
+@model OrchardCore.Users.ViewModels.LoginViewModel
+
+<div class="uk-section uk-section-muted uk-flex uk-flex-middle uk-animation-fade" uk-height-viewport>
+	<div class="uk-width-1-1">
+		<div class="uk-container">
+			<div class="uk-grid-margin uk-grid uk-grid-stack" uk-grid>
+				<div class="uk-width-1-1@m">
+					<div class="uk-margin uk-width-large uk-margin-auto">
+						<h3 class="uk-card-title uk-text-center">Login</h3>
+						<hr />
+
+						<div class="uk-width-1-1@s" style="color: red">
+							@Html.ValidationSummary(true)
+						</div><br />
+						@using (Html.BeginForm(null, null, FormMethod.Post, new { action = "/account/login?returnUrl=/dashboard" }))
+						{
+							@Html.AntiForgeryToken()
+
+
+
+							<div class="uk-width-1-1">
+								@Html.LabelFor(model => model.UserName, "Email", new { htmlAttributes = new { @class = "uk-form-label" } })
+								@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "uk-input", @required = "required", autocomplete = "off" } })
+
+							</div>
+
+							<div class="uk-width-1-1">
+								@Html.LabelFor(model => model.Password, new { htmlAttributes = new { @class = "uk-form-label" } })
+								@Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "uk-input", @required = "required", autocomplete = "off" } })
+
+							</div>
+								
+							<div class="uk-width-1-1@s uk-margin-small-top uk-margin-large-bottom uk-flex uk-flex-space-between uk-flex-middle">
+								<div>
+									<a href="/account/ForgotPassword" class="btn btn-link" style="float: left;margin-top: 12px;">Forgot password&nbsp;</a>&nbsp;  &nbsp;
+									<a href="/account/register" class="btn btn-link" style="float: left;margin-top: 12px;">&nbsp;Register for Insights</a>
+								</div>
+								<button type="submit" class="uk-button uk-button-medium button-base">Login</button>
+						</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

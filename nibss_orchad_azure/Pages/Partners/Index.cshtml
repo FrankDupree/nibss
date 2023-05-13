@@ -1,0 +1,91 @@
+﻿@page
+@using nibss_orchad_azure.Models
+
+@inject OrchardCore.IOrchardHelper Orchard
+@addTagHelper *, OrchardCore.Media
+@{
+    ViewData["Title"] = "Partners";
+    var partners = await Orchard.GetContentItemByHandleAsync("alias:partners");
+
+    //create Banner Object
+    Banner banner = new Banner
+    {
+        Title = partners.Content.Banner.BannerTitle.Text,
+        Text = partners.Content.Banner.BannerText.Text,
+        ImageUrl = partners.Content.Banner.BannerImage.Paths[0],
+        ButtonUrl = partners.Content.Banner.BannerButtonURL.Text,
+        TitleSize = partners.Content.Banner.TitleSize.Value
+    };
+
+
+
+}
+@await Html.PartialAsync("Partials/_Banner", banner)
+
+
+<div class="uk-section uk-padding-small uk-margin-large-bottom">
+    <div class="uk-container uk-container-small">
+        <div class="uk-grid-large uk-grid uk-flex uk-flex-middle">
+            <div class="uk-width-1-1@m">
+                <div class="uk-container">
+                    <div uk-grid>
+                        <div class="uk-width-1-3@m">
+                            <h6 class="small-gold uk-heading-line"><span>@partners.Content.PageHeader.SubHeading.Text</span></h6>
+                        </div>
+                        <div class="uk-width-1-1@m uk-margin-small-top">
+                            <h2 class="page_title">@partners.Content.PageHeader.heading.Text</h2>
+                        </div>
+                        <div class="uk-width-1-1@m">
+                            <div uk-filter="target: .js-filter" uk-grid>
+                                <ul class="uk-subnav uk-subnav-pill uk-width-1-3@s">
+                                    @foreach (var pg in partners.Content.BagPart.ContentItems)
+                                    {
+
+                                        string id = ((string)pg.DisplayText).Replace(" ", "-");
+                                        id = "." + id.ToLower();
+                                        if (partners.Content.BagPart.ContentItems.First == pg)
+                                        {
+                                            <li class="uk-active uk-width-1-1" uk-filter-control="@id"><a href="#">@pg.DisplayText</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li class="uk-width-1-1" uk-filter-control="@id"><a href="#">@pg.DisplayText</a></li>
+                                        }
+
+
+                                    }
+                                </ul>
+                                <div class="uk-width-expand@m">
+                                    <ul class="js-filter uk-thumbnav tags" uk-margin>
+                                        @foreach (var pg in partners.Content.BagPart.ContentItems)
+                                        {
+
+                                            string idx = ((string)pg.DisplayText).Replace(" ", "-").ToLower();
+
+                                            foreach (var partner in pg.BagPart.ContentItems)
+                                            {
+                                                int i = partner.Partner.Logo.Paths.Count;
+                                                var imgUrl = i == 0 ? "/img/640x4_3.png" : Orchard.AssetUrl((string)partner.Partner.Logo.Paths[0]);
+                                                <li class="uk-active @idx">
+                                                        <a uk-tooltip="title: @partner.Partner.name.Text" href="@partner.Partner.Website.Text" target="_blank">
+                                                            <img src="@imgUrl" width="150"  alt="@partner.Partner.name.Text logo">
+                                                        </a>
+                                                </li>
+                                            }
+                                        }
+
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

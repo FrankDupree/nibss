@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/img/favicon.png" type="image/x-icon" />
+    <meta http-equiv="Content-Security-Policy"
+          content="base-uri 'self';
+               default-src 'self';
+                img-src 'self' data: https://*;
+               object-src 'none';
+               connect-src https://widget.freshworks.com/
+                           https://nibssplc.freshdesk.com
+                           https://www.google.com/recaptcha/
+                           https://www.google-analytics.com/
+                           https://ipinfo.io/
+                   https://www.gstatic.com/recaptcha
+                           'self';
+               font-src https://cdnjs.cloudflare.com/
+                        'self';
+               frame-src https://www.youtube.com/
+                         https://platform.twitter.com/
+                         https://nibssplc.freshdesk.com/
+                         https://www.google.com/recaptcha/
+                   https://www.gstatic.com/recaptcha/
+                         https://www.google.com/
+                         https://syndication.twitter.com/;
+               script-src https://cdnjs.cloudflare.com/
+                          https://www.googletagmanager.com/
+                          https://www.google-analytics.com/
+                          https://www.gstatic.com/
+                          https://code.highcharts.com/
+                          https://ajax.googleapis.com/
+                   https://nibssplc.freshdesk.com
+                          https://platform.twitter.com/
+                          https://cdn.syndication.twimg.com/
+                           https://widget.freshworks.com/
+                           https://www.google.com/recaptcha/
+                   https://www.gstatic.com/recaptcha
+                          'self'  'unsafe-inline';
+               style-src https://cdnjs.cloudflare.com/
+                         https://platform.twitter.com/
+                         https://widget.freshworks.com/
+                   https://www.gstatic.com/recaptcha
+                   https://nibssplc.freshdesk.com
+                   https://www.google.com/recaptcha
+                         'self'
+                          'unsafe-inline';
+               upgrade-insecure-requests;" />
+    <title>@ViewData["Title"] - NIBSS</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/lib/css/uikit.min.css" type="text/css" rel="stylesheet" />
+    <link href="/css/style.min.css" type="text/css" rel="stylesheet" />
+    <link href="/css/scustom.min.css" type="text/css" rel="stylesheet" />
+    <link href="/css/media-css.css" type="text/css" rel="stylesheet" />
+    <link href="/lib/css/floatsocial.min.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    @await RenderSectionAsync("Styles", false)
+</head>
+<body>
+
+    <!-- The social media icon bar -->
+    <div class="icon-bar">
+        <a rel="noopener noreferrer" href="https://www.facebook.com/NIBSSPLC" target="_blank"><i class="fa fa-facebook"></i></a>
+
+        <a rel="noopener noreferrer" href="https://twitter.com/NIBSS_NG" target="_blank"><i class="fa fa-twitter"></i></a>
+        <a rel="noopener noreferrer" href="https://www.youtube.com/channel/UCLD7Y56uWlXKj_XxMA-61AQ" target="_blank"><i class="fa fa-youtube"></i></a>
+        <a rel="noopener noreferrer" href="https://www.instagram.com/nibssplc/" target="_blank"><i class="fa fa-instagram"></i></a>
+    </div>
+    <div id="socialfloating"></div>
+    <!--Nav-->
+    @await Component.InvokeAsync("NavBar")
+    <!--End Nav-->
+    <!--Body-->
+    @RenderBody()
+    <!--End Body-->
+    <!--Footer-->
+    @await Component.InvokeAsync("Footer")
+    <!--End Footer-->
+
+    <script src="/lib/js/uikit.min.js" type="text/javascript"></script>
+    <script src="/lib/js/uikit-icons.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js" type="text/javascript"></script>
+    <script src="/lib/js/jquery/jquery-3-5-1.js" type="text/javascript"></script>
+    <script src="/lib/js/socials.min.js" type="text/javascript"></script>
+    <script src="/js/scustom.min.js" type="text/javascript"></script>
+    <script src="~/lib/js/cookieconsent.min.js"></script>
+    <script>
+        (function () {
+            if (!localStorage.getItem('cookieconsent')) {
+                document.body.innerHTML += '\
+                                    <div class="cookieconsent" style="position:fixed;padding:20px;left:0;bottom:0;background-color:#000;color:#FFF;text-align:center;width:100%;z-index:99999;">\
+                                        The website uses cookies to improve your browsing experience. By browsing this website, you agree to the use of our cookie. <a href="/policy/Cookie_Policy">Learn more</a> \
+                                        <a href="#" style="color:#CCCCCC;">Accept and Continue</a>\
+                                    </div>\
+                                    ';
+                document.querySelector('.cookieconsent a').onclick = function (e) {
+                    e.preventDefault();
+                    document.querySelector('.cookieconsent').style.display = 'none';
+                    localStorage.setItem('cookieconsent', true);
+                };
+            }
+        })();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @if (ViewData["Title"] != null)
+    {
+        <script type="text/javascript">
+            $( document ).ready(function() {
+                var url = new URL(window.location.href);
+                if (url.pathname.split('/')[1] == "services") {
+                    console.log(url.pathname.substring(1))
+                    document.getElementById("Services").classList.add("uk-active")
+                } else {
+                    if (document.getElementById("@ViewData["Title"]") != null) {
+                        document.getElementById("@ViewData["Title"]").classList.add("uk-active");
+                    }
+                }
+            });
+        </script>
+    }
+
+    <!-- Global site tag  (gtag.js) - Google Analytics NIBSS Website -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2PE3WRMGL2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-2PE3WRMGL2');
+    </script>
+</body>
+</html>
+

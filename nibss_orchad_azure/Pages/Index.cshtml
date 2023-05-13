@@ -1,0 +1,144 @@
+﻿@page
+@using nibss_orchad_azure.Models
+@inject OrchardCore.IOrchardHelper Orchard;
+@addTagHelper *, OrchardCore.Media
+
+@{
+    ViewData["Title"] = "Home";
+    var home = await Orchard.GetContentItemByHandleAsync("alias:home");
+
+    TextBlock overView = new TextBlock
+    {
+        Title = home.Content.OverView.Title.Text,
+        SubTitle = home.Content.OverView.SubTitle.Text,
+        Body = home.Content.OverView.body.Html
+    };
+
+    TextBlock ctaBlock = new TextBlock
+    {
+        Title = home.Content.CTATextBlock.Title.Text,
+        SubTitle = home.Content.CTATextBlock.SubTitle.Text,
+        Body = home.Content.CTATextBlock.body.Html,
+        ButtonText = home.Content.CTATextBlock.ButtonText.Text,
+        ButtonUrl = home.Content.CTATextBlock.ButtonURL.Text
+    };
+}
+
+
+@await Component.InvokeAsync("Carousel")
+
+
+
+
+
+<div id="content">
+
+    <div class="umb-grid">
+        <div class="grid-section">
+            <div class="uk-container uk-container-small">
+                <div uk-grid>
+                    <div class="uk-width-expand@m">
+                        <div>
+                            <div class="uk-section">
+                                <div class="uk-container">
+                                    <div uk-grid>
+                                        <div class="uk-width-2-3@m tftp-sty">
+                                            <div uk-grid>
+                                                @await Html.PartialAsync("Partials/_TextBlock", overView)
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-container">
+                <div uk-grid>
+                    @foreach (var item in home.Content.BagPart.ContentItems)
+                    {
+
+                        <div class="uk-width-1-4@m">
+                            <div>
+                                <div class="uk-card uk-card-small uk-card-default uk-card-hover uk-card-body home-page-card">
+                                    <h5 class="home-card-title" style="color: #2c5702">@item.TitlePart.Title</h5>
+                                    <p class="uk-height-small" style="color:#748494">@item.HtmlBodyPart.Html</p>
+                                    <p class="uk-margin-remove"><a class="home-card-cta" href="@item.CardTextBlock.LinkURL.Text">@item.CardTextBlock.LinkText.Text</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="uk-section uk-section-muted uk-margin-medium" style="background:#e6e6e6; padding:2%">
+    <div class="uk-container uk-container-small">
+        <div uk-grid>
+            <div class="uk-width-1-2@m">
+                <div class="home-page-analytics-div-1">
+                    <p class="small-gold">INNOVATION IN FINANCIAL SERVICES START HERE</p>
+                    <h3 class="big-size-text-green uk-margin-small-top">Get Insights, data and analytics on payments around the nation</h3>
+                </div>
+
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
+            </div>
+            <div class="uk-width-1-2@m">
+                <div class="home-page-analytics-div-1">
+                    <p>We empower the banking ecosystem to improve the Nigerian payment industry</p>
+                    <a href="/account/login" class="uk-button uk-button-primary button-base">Discover Now</a>
+                </div>
+
+                <figure class="highcharts-figure">
+                    <div id="container2"></div>
+                </figure>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="uk-container uk-container-small nib-pro">
+    <div uk-slider>
+
+        <div class="uk-position-relative uk-visible-toggle uk-light products" tabindex="-1">
+
+            <ul class="uk-slider-items uk-child-width-1-1">
+                <li>
+                    <div class="uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+                        <div class="uk-card-media-left uk-cover-container uk-border-rounded">
+                            <div class='tran-img-bg'><div class="iframe-container"><iframe Title="Featured Video" src="@home.Content.HomePageTemplate.FeaturedVideo.RawAddress" width="560" height="315" ></iframe></div></div>
+                        </div>
+                        <div>
+                            <div class="uk-padding">
+                                @await Html.PartialAsync("Partials/_TextBlock", ctaBlock)
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+@await Component.InvokeAsync("PartnersCarousel")
+
+@await Component.InvokeAsync("BlogSection")
+
+
+
+@section Scripts{
+    <script src="~/js/home.min.js" asp-append-version="true"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/full-screen.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.13/moment-timezone-with-data-2012-2022.min.js"></script>
+    <script src="/lib/js/chart-api.min.js"></script>
+}
